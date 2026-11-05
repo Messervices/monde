@@ -84,10 +84,10 @@ table.t th{background:var(--card);color:var(--acc)}
 
 
 /* Écran de choix de la licence (bouton EXERCICE) */
-#lic{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 20px 34px;background:linear-gradient(160deg,#2a505d 0%,#21414e 55%,#1d3a46 100%);color:#fff;text-align:center}
-#lic .back{align-self:flex-start;margin-bottom:auto}
-#lic h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(1.9rem,7vw,3rem);margin:20px 0 6px}
-#lic p{margin:0 0 26px;font-size:clamp(1rem,3.6vw,1.2rem);color:#d9eaee}
+#lic,#cc{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 20px 34px;background:linear-gradient(160deg,#2a505d 0%,#21414e 55%,#1d3a46 100%);color:#fff;text-align:center}
+#lic .back,#cc .back{align-self:flex-start;margin-bottom:auto}
+#lic h1,#cc h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(1.9rem,7vw,3rem);margin:20px 0 6px}
+#lic p,#cc p{margin:0 0 26px;font-size:clamp(1rem,3.6vw,1.2rem);color:#d9eaee}
 .hbtn.l1{background:#0b9a8f}.hbtn.l2{background:#2b7bb9}.hbtn.l3{background:#7b4fc9}
 #toast2{min-height:1.4em;margin:16px 0 auto;color:#ffe3bf;font-weight:600}
 
@@ -238,3 +238,5 @@ table.t th{background:var(--card);color:var(--acc)}
 .deYear>summary span,.deSch>summary span{color:var(--mute);font-size:.82rem;font-weight:400;white-space:nowrap}
 .deYear>.deSch{margin-left:8px}
 .deCat{margin:14px 0 0 4px;font-size:.95rem;color:var(--mute)}
+
+.hbtn.cc1{background:#2f6fd0}.hbtn.cc2{background:#e07b1a}

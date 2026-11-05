@@ -23,7 +23,7 @@ const homeEl=document.getElementById('home'),licEl=document.getElementById('lic'
 let mode='ex';
 function hint(){main.innerHTML='<div class="hint"><b>Choisissez '+(mode==='co'?'une matière':'une épreuve')+' dans le sommaire</b><br>'+(mode==='co'?'Le cours s\'affichera ici.':'Les questions et leurs corrections s\'afficheront ici.')+'</div>'}
 function showCours(id,t){nav.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.id===id));scrollTo(0,0);if(COURS[id]){main.innerHTML='<h2>'+t+'</h2><p class="sub">Cours</p><button class="btn alt gobtn" onclick="goEx(\''+id+'\')">✏️ Faire les exercices de cette matière</button>'+COURS[id]+'<div class="bar"><button class="btn" onclick="goEx(\''+id+'\')">✏️ Passer aux exercices</button></div>'}else{main.innerHTML='<h2>'+t+'</h2><p class="sub">Cours</p><div class="soon">Le cours de cette matière sera bientôt disponible.</div>'}}
-function setMode(m){mode=m;backBtn.textContent=m==='co'?'← Accueil':'← Licences';nav.classList.toggle('cours',m==='co');document.getElementById('bigT').textContent=m==='co'?'COURS':'EXERCICE';document.getElementById('menuT').textContent=m==='co'?'COURS':'EXERCICE';document.getElementById('appT').textContent=m==='co'?'Succès L 1-2-3 /SF · Cours':'Succès L 1-2-3 /SF · Exercices corrigés';nav.querySelectorAll('button').forEach(b=>b.classList.toggle('todo',m==='co'&&!COURS[b.dataset.id]))}
+function setMode(m){mode=m;backBtn.textContent=m==='co'?'← Cours':'← Licences';nav.classList.toggle('cours',m==='co');document.getElementById('bigT').textContent=m==='co'?"COURS D'EXERCICES L1":'EXERCICE';document.getElementById('menuT').textContent=m==='co'?"COURS D'EXERCICES L1":'EXERCICE';document.getElementById('appT').textContent=m==='co'?'Succès L 1-2-3 /SF · Cours d\'exercices L1':'Succès L 1-2-3 /SF · Exercices corrigés';nav.querySelectorAll('button').forEach(b=>b.classList.toggle('todo',m==='co'&&!COURS[b.dataset.id]))}
 function openApp(m){setMode(m);homeEl.hidden=true;appEl.hidden=false;nav.classList.add('open','full');nav.querySelectorAll('button').forEach(b=>b.classList.remove('on'));hint();scrollTo(0,0)}
 function goEx(id){const b=nav.querySelector('button[data-id="'+id+'"]');setMode('ex');show(id,b.dataset.t,b.dataset.p)}
 function goCo(id){const b=nav.querySelector('button[data-id="'+id+'"]');setMode('co');showCours(id,b.dataset.t)}
@@ -33,9 +33,9 @@ licEl.querySelectorAll('[data-l]').forEach(b=>{b.dataset.o=b.querySelector('smal
 document.querySelectorAll('[data-hl]').forEach(b=>{b.onclick=()=>{const lv=b.dataset.hl;toast.textContent='';requireAccess(lv,()=>{if(lv==='1')openApp('ex');else toast.textContent='Licence '+lv+' : le sommaire sera bientôt disponible.'})}});
 (()=>{const b=document.getElementById('banner'),go=document.getElementById('goDe');if(b&&go){b.onclick=()=>go.click();b.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go.click()}}}})();
 document.getElementById('licBack').onclick=()=>{licEl.hidden=true;homeEl.hidden=false;scrollTo(0,0)};
-document.getElementById('goCo').onclick=()=>requireAccess('1',()=>openApp('co'));
+/* COURS : ouvre la page de choix (voir cc.js) */
 document.getElementById('goDe').onclick=()=>DE.open();
-backBtn.onclick=()=>{appEl.hidden=true;if(mode==='ex')licEl.hidden=false;else homeEl.hidden=false;scrollTo(0,0)};
+backBtn.onclick=()=>{appEl.hidden=true;if(mode==='ex')licEl.hidden=false;else document.getElementById('cc').hidden=false;scrollTo(0,0)};
 
 /* ===== Accès par code (Licence 1, 2, 3) ===== */
 const KEY='infas_acces';
