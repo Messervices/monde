@@ -1,0 +1,32 @@
+{
+  "id": "/",
+  "name": "MON D.E INFAS",
+  "short_name": "MON D.E",
+  "description": "Cours, QCM, QCD, sujets D.E corrigés et jeu quiz pour préparer le diplôme d'État IDE et SF.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0b3d3a",
+  "theme_color": "#0b9a8f",
+  "lang": "fr",
+  "dir": "ltr",
+  "categories": [
+    "education",
+    "medical"
+  ],
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

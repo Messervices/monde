@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Diagnostique mon patient</title>
+<style>
+:root{--bg:#f2f5f8;--card:#fff;--ink:#13233a;--muted:#5a6b80;--line:#d6dee8;--brand:#0b7285;--soft:#dff3f6;--ok:#17794a;--okbg:#dcf3e6;--ko:#c0261c;--kobg:#fde4e1}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1824;--card:#16253a;--ink:#e8eef6;--muted:#9fb0c5;--line:#2a3d57;--brand:#4fc3d6;--soft:#12333b;--ok:#62d697;--okbg:#12362a;--ko:#ff8a80;--kobg:#3d1a17}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:16px;line-height:1.5}
+main{max-width:760px;margin:0 auto;padding:12px 12px 40px}
+h2{font-size:1.1rem;color:var(--brand);margin:6px 0 10px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin:10px 0}
+.card p{margin:0 0 10px;color:var(--muted);font-size:.93rem}
+.lbl{font-weight:800;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:14px 0 6px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:inherit;font-weight:700;padding:9px 14px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.chip.on{background:var(--brand);border-color:var(--brand);color:#fff}
+button.b{width:100%;font:inherit;font-weight:800;padding:13px;border-radius:12px;border:0;background:var(--brand);color:#fff;cursor:pointer;margin-top:14px}
+button.b.alt{background:var(--card);color:var(--brand);border:1px solid var(--brand)}
+button.b:disabled{opacity:.45;cursor:default}
+.top{position:sticky;top:0;z-index:5;background:var(--bg);padding:8px 0;border-bottom:1px solid var(--line)}
+.bar{height:8px;border-radius:6px;background:var(--line);overflow:hidden}.bar i{display:block;height:100%;width:0;background:var(--brand);transition:width .2s}
+.meta{display:flex;justify-content:space-between;color:var(--muted);font-size:.88rem;margin-top:4px}
+.pat{font-weight:800;font-size:1.05rem;margin:0 0 8px}.pat small{display:block;font-weight:600;color:var(--muted);font-size:.85rem}
+.sg{list-style:none;margin:0 0 6px;padding:0}.sg li{background:var(--soft);border-left:4px solid var(--brand);border-radius:8px;padding:8px 10px;margin:6px 0;animation:in .25s}
+@keyframes in{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.o{display:block;width:100%;text-align:left;font:inherit;font-weight:600;color:inherit;background:transparent;border:1px solid var(--line);border-radius:10px;padding:11px;margin:7px 0;cursor:pointer}
+.o.good{border-color:var(--ok);background:var(--okbg)}.o.bad{border-color:var(--ko);background:var(--kobg);text-decoration:line-through;opacity:.8}
+.o:disabled{cursor:default}
+.fb{margin-top:10px;padding:10px 12px;border-radius:10px;font-size:.95rem}.fb.ok{background:var(--okbg);color:var(--ink)}.fb.ko{background:var(--kobg)}
+.big{font-size:2rem;font-weight:900;text-align:center;color:var(--brand)}
+.rev{border-top:1px solid var(--line);padding:8px 0;font-size:.92rem}
+.src{margin-top:6px;font-size:.78rem;color:var(--muted);font-style:italic}
+[hidden]{display:none!important}
+</style></head><body><main>
+<div id="setup"><div class="card">
+ <h2>🩺 Diagnostique mon patient</h2>
+ <p>Un patient arrive. Les signes apparaissent un par un : trouve la pathologie le plus vite possible. Moins tu utilises de signes, plus tu gagnes de points (5 points au maximum, −1 par mauvaise réponse).</p>
+ <div class="lbl">Domaine</div><div class="chips" id="cDom"></div>
+ <div class="lbl">Nombre de patients</div><div class="chips" id="cNum"></div>
+ <button class="b" id="start">▶ Recevoir les patients</button>
+ <p style="margin-top:10px;font-size:.85rem" id="info"></p>
+ <p style="font-size:.78rem">Contenu pédagogique : les cas sont vérifiés sur des sources officielles (OMS, PCIME, MSF, CDC) lorsqu'une source est indiquée sous la correction. Ce jeu ne remplace ni ton cours ni les protocoles nationaux.</p>
+</div></div>
+<div id="play" hidden>
+ <div class="top"><div class="bar"><i id="pb"></i></div><div class="meta"><span id="cnt"></span><span id="sc"></span></div></div>
+ <div class="card" id="qcard"></div>
+ <button class="b" id="act"></button>
+</div>
+<div id="end" hidden><div class="card"><h2>Résultat</h2><div class="big" id="final"></div><p id="msg" style="text-align:center"></p>
+ <div id="revWrap" hidden><div class="lbl">Diagnostics à retenir</div><div id="rev"></div></div>
+ <button class="b" id="again">↺ Nouvelle consultation</button></div></div>
+</main>
+<script src="diag-data.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+const DOMS=['all','Pédiatrie','Médecine','Chirurgie','Santé publique','Santé de la reproduction'];
+let dom='all',num=10,Q=[],i=0,shown=1,wrong=0,pts=0,done=false,missed=[];
+const pool=()=>DIAG.filter(c=>dom==='all'||c[0]===dom);
+const shuffle=a=>{for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]]}return a};
+function chips(){const n=pool().length,L=[5,10].filter(v=>v<n).concat([n]);if(!L.includes(num))num=L.includes(10)?10:L[L.length-1];
+ $('cDom').innerHTML=DOMS.map(d=>'<button class="chip'+(d===dom?' on':'')+'" data-v="'+d+'">'+(d==='all'?'Ensemble':d)+' · '+DIAG.filter(c=>d==='all'||c[0]===d).length+'</button>').join('');
+ $('cNum').innerHTML=L.map(v=>'<button class="chip'+(v===num?' on':'')+'" data-v="'+v+'">'+(v===n&&n>1?'Tout · ':'')+v+'</button>').join('');
+ $('info').textContent=n+' patients disponibles dans ce choix.'}
+$('cDom').onclick=e=>{const b=e.target.closest('.chip');if(b){dom=b.dataset.v;chips()}};
+$('cNum').onclick=e=>{const b=e.target.closest('.chip');if(b){num=+b.dataset.v;chips()}};
+chips();
+function show(v){['setup','play','end'].forEach(x=>$(x).hidden=x!==v);scrollTo(0,0)}
+$('start').onclick=()=>{Q=shuffle(pool().slice()).slice(0,num);i=0;pts=0;missed=[];show('play');render()};
+function options(c){const faux=shuffle(DIAG_FAUX[c[0]].filter(f=>f!==c[1])).slice(0,3);return shuffle([c[1]].concat(faux))}
+function render(){const c=Q[i];shown=1;wrong=0;done=false;c.opt=c.opt||options(c);
+ $('cnt').textContent='Patient '+(i+1)+' / '+Q.length;$('sc').textContent='Points : '+pts;$('pb').style.width=(i/Q.length*100)+'%';
+ $('qcard').innerHTML='<div class="pat">'+c[2]+'<small>'+c[0]+'</small></div><div class="lbl">Signes observés</div><ul class="sg" id="sg"></ul><div class="lbl">Quelle est la pathologie ?</div><div id="opts">'+c.opt.map((t,j)=>'<button class="o" data-j="'+j+'">'+t+'</button>').join('')+'</div><div id="fb"></div>';
+ drawSigns();setAct()}
+function drawSigns(){const c=Q[i];$('sg').innerHTML=c[3].slice(0,shown).map(s=>'<li>'+s+'</li>').join('')}
+function setAct(){const c=Q[i],a=$('act');
+ if(done){a.textContent=i+1<Q.length?'Patient suivant →':'Voir le résultat';a.onclick=next;a.className='b';return}
+ if(shown<c[3].length){a.textContent='➕ Voir un autre signe ('+shown+' / '+c[3].length+')';a.className='b alt';a.onclick=()=>{shown++;drawSigns();setAct()}}
+ else{a.textContent='🏳️ Abandonner (0 point)';a.className='b alt';a.onclick=()=>finishCase(false)}}
+$('qcard').onclick=e=>{const b=e.target.closest('.o');if(!b||done||b.disabled)return;const c=Q[i];
+ if(c.opt[+b.dataset.j]===c[1]){finishCase(true,b)}else{b.classList.add('bad');b.disabled=true;wrong++;$('fb').innerHTML='<div class="fb ko">Ce n\'est pas ça (−1 point). Observe un autre signe ou réessaie.</div>'}};
+function finishCase(ok,btn){const c=Q[i];done=true;let g=0;
+ if(ok){g=Math.max(0,Math.max(1,6-shown)-wrong);pts+=g}else missed.push(c);
+ [...document.querySelectorAll('.o')].forEach(x=>{x.disabled=true;if(c.opt[+x.dataset.j]===c[1])x.classList.add('good')});
+ shown=c[3].length;drawSigns();
+ $('fb').innerHTML='<div class="fb '+(ok?'ok':'ko')+'"><b>'+(ok?'✔ Bravo ! +'+g+' point'+(g>1?'s':''):'Diagnostic : '+c[1])+'</b><br>'+(ok?'<b>'+c[1]+'</b><br>':'')+c[4]+'<div class="src">'+(c[5]?'Source : '+c[5]:'Contenu de cours classique : à confronter à ton cours.')+'</div></div>';
+ $('sc').textContent='Points : '+pts;$('pb').style.width=((i+1)/Q.length*100)+'%';setAct();$('fb').scrollIntoView({block:'nearest',behavior:'smooth'})}
+function next(){if(i+1<Q.length){i++;render();scrollTo(0,0)}else finish()}
+function finish(){const max=Q.length*5,p=Math.round(pts/max*100);$('final').textContent=pts+' / '+max+' points';
+ $('msg').textContent=p>=80?'Excellent clinicien 👏':p>=60?'Bon raisonnement, continuez 💪':'Courage : relisez les diagnostics ci-dessous puis recommencez.';
+ $('revWrap').hidden=!missed.length;$('rev').innerHTML=missed.map(c=>'<div class="rev"><b>'+c[1]+'</b><br>'+c[4]+'<div class="src">'+(c[5]?'Source : '+c[5]:'Contenu de cours classique : à confronter à ton cours.')+'</div></div>').join('');show('end')}
+$('again').onclick=()=>{chips();show('setup')};
+</script><script src="definitions.js"></script>
+</body></html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pédiatrie – Entraînement</title>
+<style>
+:root{--bg:#f2f5f8;--card:#fff;--ink:#13233a;--muted:#5a6b80;--line:#d6dee8;--brand:#d6457a;--soft:#fbe6ee;--ok:#17794a;--okbg:#dcf3e6;--ko:#c0261c;--kobg:#fde4e1;--warn:#fff2d1}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1824;--card:#16253a;--ink:#e8eef6;--muted:#9fb0c5;--line:#2a3d57;--brand:#f07aa4;--soft:#3a1c2a;--ok:#62d697;--okbg:#12362a;--ko:#ff8a80;--kobg:#3d1a17;--warn:#3b2f10}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:16px;line-height:1.5}
+main{max-width:760px;margin:0 auto;padding:12px 12px 40px}
+h2{font-size:1.1rem;color:var(--brand);margin:6px 0 10px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin:10px 0}
+.card p{margin:0 0 10px;color:var(--muted);font-size:.93rem}
+.lbl{font-weight:800;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:14px 0 6px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:inherit;font-weight:700;padding:9px 14px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.chip.on{background:var(--brand);border-color:var(--brand);color:#fff}
+button.b{width:100%;font:inherit;font-weight:800;padding:13px;border-radius:12px;border:0;background:var(--brand);color:#fff;cursor:pointer;margin-top:14px}
+button.b.alt{background:var(--card);color:var(--brand);border:1px solid var(--brand)}
+button.b:disabled{opacity:.45;cursor:default}
+.top{position:sticky;top:0;z-index:5;background:var(--bg);padding:8px 0;border-bottom:1px solid var(--line)}
+.bar{height:8px;border-radius:6px;background:var(--line);overflow:hidden}.bar i{display:block;height:100%;width:0;background:var(--brand);transition:width .2s}
+.meta{display:flex;justify-content:space-between;color:var(--muted);font-size:.88rem;margin-top:4px}
+.tag{display:inline-block;font-size:.75rem;font-weight:800;letter-spacing:.08em;padding:2px 8px;border-radius:999px;background:var(--soft);color:var(--brand);margin-bottom:6px}
+.qt{font-size:1.05rem;font-weight:700;margin:2px 0 10px}
+.hint{color:var(--muted);font-size:.85rem;margin:0 0 6px}
+.o{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;font:inherit;color:inherit;background:transparent;border:1px solid var(--line);border-radius:10px;padding:10px;margin:7px 0;cursor:pointer}
+.o span.l{font-weight:800;color:var(--brand);min-width:1.2em}
+.o.sel{border-color:var(--brand);background:var(--soft)}
+.o.good{border-color:var(--ok);background:var(--okbg)}.o.bad{border-color:var(--ko);background:var(--kobg)}
+.o.miss{border-style:dashed;border-color:var(--ok)}
+.o:disabled{cursor:default;opacity:1}
+.fb{margin-top:10px;padding:10px 12px;border-radius:10px;font-size:.95rem}
+.fb.ok{background:var(--okbg);color:var(--ok)}.fb.ko{background:var(--kobg);color:var(--ko)}
+.fb b{display:block;margin-bottom:2px}.fb span{color:var(--ink)}
+.big{font-size:2.2rem;font-weight:900;text-align:center;color:var(--brand);margin:6px 0}
+.rev{border-left:4px solid var(--ko);padding:8px 10px;margin:8px 0;background:var(--card);border-radius:8px;font-size:.93rem}
+.rev small{display:block;color:var(--muted);margin-top:4px}
+.gate{position:fixed;inset:0;z-index:50;background:rgba(6,20,25,.78);display:flex;align-items:flex-start;justify-content:center;overflow:auto;padding:16px 14px}
+.gate[hidden]{display:none}
+.gatebox{position:relative;background:var(--card);color:var(--ink);width:100%;max-width:440px;border-radius:18px;padding:22px 18px 20px;margin:auto;box-shadow:0 14px 40px rgba(0,0,0,.45)}
+.gatebox h2{margin:0 28px 6px 0;font-size:1.25rem;color:var(--ink)}
+.gatebox>p{margin:0 0 14px;color:var(--muted);font-size:.93rem}
+.gx{position:absolute;top:8px;right:10px;background:none;border:0;font-size:1.8rem;line-height:1;color:var(--muted);cursor:pointer;padding:4px 8px}
+.gin{display:flex;gap:8px}
+.gin input{flex:1;min-width:0;font:inherit;font-size:1.15rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;text-align:center;padding:10px;border:2px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink)}
+.gin input:focus{outline:none;border-color:var(--brand)}
+.gin button{font:inherit;font-weight:800;padding:0 16px;border:0;border-radius:10px;background:var(--brand);color:#fff;cursor:pointer}
+#gateErr{min-height:1.3em;margin:8px 0 0;color:var(--ko);font-size:.88rem;font-weight:600}
+.paybox{margin-top:16px;padding:16px;border-radius:14px;background:var(--bg);border:1px solid var(--line);text-align:center}
+.paybox h3{margin:0 0 10px;font-size:1.05rem}
+.prices{display:flex;flex-direction:column;gap:2px;margin:0 0 10px;font-size:1rem}
+.prices b{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;opacity:.75}
+.prices strong{font-size:1.25rem;color:var(--brand)}
+.paysub{margin:8px 0;font-size:.88rem;opacity:.9}
+.qr{display:block;width:210px;max-width:70%;height:auto;margin:10px auto;border-radius:12px;border:3px solid #fff;background:#fff}
+.wa{display:block;background:#25a244;color:#fff;text-decoration:none;text-align:center;margin-top:12px;font-weight:800;padding:12px;border-radius:12px}
+.paytel{margin:8px 0 0;font-size:.82rem;opacity:.85}
+.ctx{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin:0 0 12px;font-size:.92rem}.ctx summary{font-weight:800;color:var(--brand);cursor:pointer}.ctx div{margin-top:6px}
+.cor h4{margin:14px 0 4px;color:var(--brand)}.cor ul,.cor ol{margin:4px 0 8px;padding-left:20px}.cor table{border-collapse:collapse;width:100%;font-size:.88rem}.cor td,.cor th{border:1px solid var(--line);padding:6px;vertical-align:top;text-align:left}.cor th{background:var(--soft)}
+.qq{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:0 0 10px}
+.qq.ok{border-color:var(--ok)}.qq.ko{border-color:var(--ko)}
+.qh{margin:0 0 8px;font-weight:600;color:var(--ink)}
+.opts label{display:block;padding:7px 8px;border-radius:8px;cursor:pointer}
+.opts input{margin-right:8px;accent-color:var(--brand)}
+.opts label.good{background:var(--okbg)}.opts label.bad{background:var(--kobg)}
+.fix{margin-top:8px;font-size:.93rem}.fix:empty{display:none}
+.qq.ok .fix>b{color:var(--ok)}.qq.ko .fix>b{color:var(--ko)}
+.bar2{position:sticky;bottom:0;background:var(--bg);padding:10px 0;display:flex;gap:8px;align-items:center;flex-wrap:wrap;border-top:1px solid var(--line)}
+.bar2 button.b{width:auto;margin:0;flex:1;padding:11px 8px}.bar2 .score{width:100%;font-weight:700;text-align:center}.score:empty{display:none}
+</style></head><body><main>
+
+<div id="setup">
+ <div class="card">
+  <h2>👶 Exercice spécial d'entraînement</h2>
+  <img src="images/couverture-pediatrie.jpg" alt="Couverture du livre Pédiatrie, Exercices et Corrigés, INFAS Licence 3, 2020-2021" style="display:block;width:100%;max-width:360px;margin:0 auto 12px;border-radius:10px;border:1px solid var(--line)">
+  <p style="text-align:center;font-size:.85rem"><b>Base :</b> « Pédiatrie · Exercices &amp; Corrigés » · INFAS · Licence 3 · 2020-2021</p>
+  <p>Questions de pédiatrie tirées des sujets D.E de toutes les antennes, tirées au hasard. Toutes les questions s'affichent ensemble, comme dans EXAMEN SUJET D.E : répondez, puis touchez « Corriger » en bas de la page.</p>
+  <div class="lbl">Type de questions</div>
+  <div class="chips" id="cType"><button class="chip on" data-v="all">Mélange</button><button class="chip" data-v="QCD">QCD (vrai / faux)</button><button class="chip" data-v="QCM">QCM</button></div>
+  <div class="lbl">Nombre de questions</div>
+  <div class="chips" id="cNum"></div>
+  <button class="b" id="start">▶ Commencer l'entraînement</button>
+  <p style="margin-top:10px;font-size:.85rem" id="poolInfo"></p>
+ </div>
+</div>
+
+<div id="play" hidden>
+ <div class="top"><div class="bar"><i id="pb"></i></div><div class="meta"><span id="cnt"></span><span id="sc"></span></div></div>
+ <div class="card" id="qcard"></div>
+ <button class="b" id="act">Valider</button>
+</div>
+
+<div id="sheet" hidden><div id="sheetBody"></div><div class="bar2"><button class="b" id="sheetGo">Corriger</button><button class="b alt" id="sheetRs">Recommencer</button><button class="b alt" id="sheetNew">↺ Nouveau tirage</button><span class="score" id="sheetScore"></span></div></div>
+
+<div id="end" hidden>
+ <div class="card"><h2>Résultat</h2><div class="big" id="final"></div><p id="msg" style="text-align:center"></p>
+  <div id="revWrap" hidden><div class="lbl">À revoir</div><div id="rev"></div></div>
+  <button class="b" id="again">↺ Nouvel entraînement</button>
+ </div>
+</div>
+
+</main>
+
+<div id="gate" class="gate" hidden role="dialog" aria-modal="true" aria-labelledby="gateT"><div class="gatebox"><button class="gx" id="gateX" aria-label="Fermer">×</button><h2 id="gateT">🔒 Code d'accès requis</h2><p id="gateP">L'entraînement avec correction est réservé aux abonnés (1 000 FCFA / mois). Contactez l'administrateur sur WhatsApp pour obtenir votre code, puis saisissez-le ci-dessous.</p><div class="gin"><input id="gateIn" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="XXXX-XXXX-XXXX" maxlength="16"><button id="gateOk">Valider</button></div><div id="gateErr" role="alert"></div><div class="paybox"><h3>🔓 Obtenir un code d'accès</h3><p class="prices"><b>Inscription</b><span><strong>1 000 FCFA</strong> / mois</span></p><p class="paysub">Scannez le QR code avec l'application <b>Wave</b> pour payer.</p><img class="qr" src="images/wave-qr.jpg" alt="QR code Wave pour payer l'inscription"><p class="paysub">Après le paiement, l'administrateur vous envoie votre code d'accès.</p><a class="wa" target="_blank" rel="noopener" id="payWa" href="#">💬 Contacter l'administrateur sur WhatsApp</a><p class="paytel">WhatsApp : <b id="payTel"></b> · pour plus d'informations</p></div></div></div>
+
+<script src="access.js"></script>
+<script src="ped-train.js"></script>
+<script>
+const $=id=>document.getElementById(id),L='ABCDEF';
+let type='all',num=20,Q=[],i=0,sel=[],checked=false,score=0,wrong=[];
+
+/* ===== Accès par code (même mémorisation que le reste du site) ===== */
+const KEY='infas_acces',gate=$('gate'),gIn=$('gateIn'),gErr=$('gateErr');let gDone=null;
+function store(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){return {}}}
+function saveStore(o){try{localStorage.setItem(KEY,JSON.stringify(o))}catch(e){}}
+function okHash(lv,h){return !!h&&((ACCESS.codes[lv]||[]).includes(h)||(ACCESS.codes.all||[]).includes(h))}
+function hasAnyAccess(){const o=store();return ['1','2','3'].some(l=>okHash(l,o[l])||okHash(l,o.all))}
+function closeGate(){gate.hidden=true;gDone=null;document.body.style.overflow=''}
+function requireCode(done){if(hasAnyAccess()){done();return}
+ gDone=done;gIn.value='';gErr.textContent='';gate.hidden=false;gate.scrollTop=0;document.body.style.overflow='hidden';setTimeout(()=>gIn.focus(),50)}
+function submitGate(){const code=gIn.value.trim();if(!code){gErr.textContent='Saisissez votre code.';return}
+ const ha=hashCode('all',code);let hit=(ACCESS.codes.all||[]).includes(ha)?['all',ha]:null;
+ if(!hit)for(const l of ['1','2','3']){const h=hashCode(l,code);if((ACCESS.codes[l]||[]).includes(h)){hit=[l,h];break}}
+ if(hit){const o=store();o[hit[0]]=hit[1];saveStore(o);const d=gDone;closeGate();d()}else{gErr.textContent="Code incorrect. Vérifiez-le ou contactez l'administrateur.";gIn.select()}}
+$('gateOk').onclick=submitGate;gIn.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();submitGate()}};
+$('gateX').onclick=closeGate;gate.onclick=e=>{if(e.target===gate)closeGate()};
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!gate.hidden)closeGate()});
+$('payWa').href='https://wa.me/'+ACCESS.admin.wa+'?text='+encodeURIComponent("Bonjour, je souhaite un code d'accès à « MON D.E INFAS ».");
+$('payTel').textContent=ACCESS.admin.tel.replace(/(\d\d)(?=\d)/g,'$1 ').trim();
+
+/* ===== Réglages ===== */
+const isCas=q=>q.t==='CAS'||!!q.g;
+function pool(){return PED_TRAIN.filter(q=>type==='CAS'?isCas(q):(!isCas(q)&&(type==='all'||q.t===type)))}
+function nums(){const n=pool().length,P=[10,20,50,100,200,500].filter(v=>v<n),L=P.concat([n]);
+ if(!L.includes(num))num=L.includes(20)?20:L[Math.min(1,L.length-1)];
+ $('cNum').innerHTML=L.map(v=>'<button class="chip'+(v===num?' on':'')+'" data-v="'+v+'">'+(v===n&&n>1?'Tout · ':'')+v+'</button>').join('')}
+function info(){nums();const n=pool().length;$('poolInfo').textContent=type==='CAS'?n+' questions disponibles, réparties sur '+new Set(pool().map(q=>q.g)).size+' études de cas (les questions d\'un même cas se suivent).':n+' questions disponibles dans ce choix.'}
+$('cType').onclick=e=>{const b=e.target.closest('.chip');if(!b)return;type=b.dataset.v;[...$('cType').children].forEach(c=>c.classList.toggle('on',c===b));info()};
+$('cNum').onclick=e=>{const b=e.target.closest('.chip');if(!b)return;num=+b.dataset.v;[...$('cNum').children].forEach(c=>c.classList.toggle('on',c===b))};
+info();
+const cleanE=e=>/^\s*(Vrai|Faux|Non|Oui)\.?\s*$/i.test(e||'')?'':(e||'');
+function shuffle(a){for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]]}return a}
+function show(v){['setup','play','sheet','end'].forEach(x=>$(x).hidden=x!==v);scrollTo(0,0)}
+$('start').onclick=begin;
+function begin(){if(type==='CAS'){const G={};pool().forEach(q=>(G[q.g]=G[q.g]||[]).push(q));Q=shuffle(Object.keys(G)).flatMap(k=>G[k]).slice(0,num)}else Q=shuffle(pool().slice()).slice(0,num);i=0;score=0;wrong=[];buildSheet();show('sheet')}
+
+/* ===== Toutes les questions sur une seule page (comme EXAMEN SUJET D.E) ===== */
+function buildSheet(){let s='',n=0,lastG=null;
+ Q.forEach((q,k)=>{n++;
+  if(q.t==='CAS'){lastG=null;s+='<div class="qq" data-k="'+k+'"><span class="tag">ÉTUDE DE CAS</span><div class="qt">'+q.title+'</div><p style="color:var(--ink)">'+q.q+'</p><div class="lbl">Travail à faire</div><ol>'+q.w.map(x=>'<li>'+x+'</li>').join('')+'</ol><button class="b alt casbtn" data-k="'+k+'">Voir le corrigé</button><div class="fix"></div></div>';return}
+  const cx=q.g&&typeof PED_CTX!=='undefined'?PED_CTX[q.g]:null;
+  if(cx&&q.g!==lastG)s+='<details open class="ctx"><summary>📋 Étude de cas · '+cx.t+'</summary><div>'+cx.h+'</div></details>';
+  lastG=cx?q.g:null;
+  const multi=q.a.length>1,qcd=q.t==='QCD';
+  s+='<div class="qq" data-k="'+k+'"><p class="qh"><b>'+n+'.</b> '+q.q+'</p>'+(multi?'<p class="hint">Plusieurs bonnes réponses : cochez-les toutes.</p>':'')+'<div class="opts">'+q.o.map((t,j)=>'<label><input type="'+(multi?'checkbox':'radio')+'" name="p'+k+'" value="'+j+'">'+(qcd?(j?'B · Faux':'A · Vrai'):L[j]+'. '+t.replace(/^[AB] — /,''))+'</label>').join('')+'</div><div class="fix"></div></div>'});
+ $('sheetBody').innerHTML='<h2>👶 Pédiatrie · '+Q.length+' question'+(Q.length>1?'s':'')+'</h2>'+s;$('sheetScore').textContent='';$('sheetGo').disabled=false}
+function showCas(el){const q=Q[+el.dataset.k];el.querySelector('.fix').innerHTML='<div class="fb ok cor">'+q.c+'</div>';const b=el.querySelector('.casbtn');if(b)b.hidden=true}
+function correctAll(){let ok=0,tot=0;
+ $('sheetBody').querySelectorAll('.qq').forEach(el=>{const q=Q[+el.dataset.k];if(q.t==='CAS'){showCas(el);return}
+  tot++;const labs=[...el.querySelectorAll('label')],sel=[...el.querySelectorAll('input:checked')].map(x=>+x.value);
+  const good=[...q.a].sort().join()===[...sel].sort().join();
+  labs.forEach(l=>{const v=+l.querySelector('input').value;if(q.a.includes(v))l.classList.add('good');else if(sel.includes(v))l.classList.add('bad')});
+  const ans=q.a.map(j=>q.t==='QCD'?(j?'B · Faux':'A · Vrai'):L[j]).join(', ');
+  el.classList.remove('ok','ko');el.classList.add(good?'ok':'ko');
+  el.querySelector('.fix').innerHTML='<b>'+(good?'✔ Correct.':'✘ Incorrect.')+' Réponse : '+ans+'.</b>'+(cleanE(q.e)?' '+cleanE(q.e):'');
+  el.querySelectorAll('input').forEach(i=>i.disabled=true);if(good)ok++});
+ $('sheetScore').textContent=tot?'Score : '+ok+' / '+tot+' ('+Math.round(ok/tot*100)+' %)':'Corrigé affiché';$('sheetGo').disabled=true}
+$('sheetGo').onclick=()=>requireCode(correctAll);
+$('sheetBody').onclick=e=>{const b=e.target.closest('.casbtn');if(b)requireCode(()=>showCas(b.closest('.qq')))};
+$('sheetRs').onclick=()=>{buildSheet();scrollTo(0,0)};
+$('sheetNew').onclick=()=>show('setup');
+
+/* ===== Questions (ancien mode une par une, plus utilisé) ===== */
+function render(){const q=Q[i];sel=[];checked=false;if(q.t==='CAS')return renderCas(q);const multi=q.a.length>1;
+ $('cnt').textContent='Question '+(i+1)+' / '+Q.length;$('sc').textContent='Score : '+score;$('pb').style.width=(i/Q.length*100)+'%';
+ const cx=q.g&&typeof PED_CTX!=='undefined'?PED_CTX[q.g]:null;
+ $('qcard').innerHTML=(cx?'<details open class="ctx"><summary>📋 Étude de cas · '+cx.t+'</summary><div>'+cx.h+'</div></details>':'')+'<span class="tag">'+(q.t==='QCD'?'QCD · Vrai / Faux':(multi?'QCM · '+q.a.length+' réponses':'QCM'))+'</span><div class="qt">'+q.q+'</div>'+(multi?'<p class="hint">Plusieurs bonnes réponses : cochez-les toutes, puis validez.</p>':'')+
+  q.o.map((t,j)=>'<button class="o" data-j="'+j+'"><span class="l">'+(q.t==='QCD'?(j?'B':'A'):L[j])+'</span><span>'+t.replace(/^[AB] — /,'')+'</span></button>').join('')+'<div id="fb"></div>';
+ const act=$('act');act.textContent=multi?'Valider':'Choisissez une réponse';act.disabled=true;act.onclick=check}
+$('qcard').onclick=e=>{const b=e.target.closest('.o');if(!b||checked)return;const q=Q[i],j=+b.dataset.j,multi=q.a.length>1;
+ if(multi){const k=sel.indexOf(j);k>=0?sel.splice(k,1):sel.push(j)}else sel=[j];
+ [...$('qcard').querySelectorAll('.o')].forEach(x=>x.classList.toggle('sel',sel.includes(+x.dataset.j)));
+ $('act').disabled=!sel.length;
+ if(!multi)check()};
+function renderCas(q){$('cnt').textContent='Étude de cas '+(i+1)+' / '+Q.length;$('sc').textContent='';$('pb').style.width=(i/Q.length*100)+'%';
+ $('qcard').innerHTML='<span class="tag">ÉTUDE DE CAS</span><div class="qt">'+q.title+'</div><p style="color:var(--ink)">'+q.q+'</p><div class="lbl">Travail à faire</div><ol>'+q.w.map(x=>'<li>'+x+'</li>').join('')+'</ol><p class="hint">Cherchez votre réponse (sur papier) avant d\'afficher le corrigé.</p><div id="fb"></div>';
+ const act=$('act');act.textContent='Voir le corrigé';act.disabled=false;act.onclick=()=>requireCode(()=>{$('fb').innerHTML='<div class="fb ok cor">'+q.c+'</div>';act.textContent=i+1<Q.length?'Étude de cas suivante →':'Terminer';act.onclick=next;$('fb').scrollIntoView({block:'nearest',behavior:'smooth'})})}
+function check(){if(checked||!sel.length)return;requireCode(doCheck)}
+function doCheck(){if(checked||!sel.length)return;checked=true;const q=Q[i];
+ const good=[...q.a].sort().join()===[...sel].sort().join();
+ [...$('qcard').querySelectorAll('.o')].forEach(x=>{const j=+x.dataset.j,s=sel.includes(j),g=q.a.includes(j);x.disabled=true;x.classList.remove('sel');
+  if(s&&g)x.classList.add('good');else if(s&&!g)x.classList.add('bad');else if(g)x.classList.add('miss')});
+ const ans=q.a.map(j=>q.t==='QCD'?(j?'B · Faux':'A · Vrai'):L[j]).join(', ');
+ $('fb').innerHTML='<div class="fb '+(good?'ok':'ko')+'"><b>'+(good?'✔ Correct.':'✘ Incorrect.')+' Réponse : '+ans+'.</b>'+(cleanE(q.e)?'<span>'+cleanE(q.e)+'</span>':'')+'</div>';
+ if(good)score++;else wrong.push(q);
+ $('sc').textContent='Score : '+score;$('pb').style.width=((i+1)/Q.length*100)+'%';
+ const act=$('act');act.disabled=false;act.textContent=i+1<Q.length?'Question suivante →':'Voir le résultat';act.onclick=next;
+ $('fb').scrollIntoView({block:'nearest',behavior:'smooth'})}
+function next(){if(i+1<Q.length){i++;render();scrollTo(0,0)}else finish()}
+function finish(){if(Q.every(q=>q.t==='CAS')){$('final').textContent='Étude(s) de cas terminée(s) ✔';$('msg').textContent='Comparez votre démarche au corrigé, puis recommencez avec un autre type de question.';$('revWrap').hidden=true;show('end');return}
+const p=Math.round(score/Q.length*100);$('final').textContent=score+' / '+Q.length+' ('+p+' %)';
+ $('msg').textContent=p>=80?'Excellent travail 👏':p>=60?'Bien, continuez ainsi 💪':'Courage : revoyez les questions ci-dessous puis recommencez.';
+ $('revWrap').hidden=!wrong.length;
+ $('rev').innerHTML=wrong.map(q=>'<div class="rev"><b>'+q.q+'</b><small>Réponse : '+q.a.map(j=>q.t==='QCD'?(j?'B · Faux':'A · Vrai'):L[j]+' — '+q.o[j]).join(' ; ')+'</small>'+(cleanE(q.e)?'<small>'+cleanE(q.e)+'</small>':'')+'</div>').join('');
+ show('end')}
+$('again').onclick=()=>show('setup');
+</script><script src="definitions.js"></script>
+</body></html>

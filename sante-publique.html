@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Santé publique – PREPA INFAS 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:wght@600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f2f5f8; --card:#ffffff; --ink:#13233a; --muted:#5a6b80; --line:#d6dee8;
+  --brand:#0b6e75; --brand-ink:#ffffff; --soft:#dff1f1;
+  --ok:#17794a; --ok-bg:#e1f4ea; --ko:#b83a32; --ko-bg:#fbe7e5; --warn:#8a5a00; --warn-bg:#fff2d1;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0e1824; --card:#16253a; --ink:#e8eef6; --muted:#9fb0c5; --line:#2a3d57;
+    --brand:#4cc3c9; --brand-ink:#08222a; --soft:#173a44;
+    --ok:#62d697; --ok-bg:#12382a; --ko:#ff8a80; --ko-bg:#40201f; --warn:#f2c35c; --warn-bg:#3b2f10;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0e1824; --card:#16253a; --ink:#e8eef6; --muted:#9fb0c5; --line:#2a3d57;
+  --brand:#4cc3c9; --brand-ink:#08222a; --soft:#173a44;
+  --ok:#62d697; --ok-bg:#12382a; --ko:#ff8a80; --ko-bg:#40201f; --warn:#f2c35c; --warn-bg:#3b2f10;
+}
+*{box-sizing:border-box}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:16px;line-height:1.5}
+h1,h2,h3{font-family:"Bricolage Grotesque","Atkinson Hyperlegible",system-ui,sans-serif;line-height:1.15;margin:0}
+header{padding:22px 16px 14px;max-width:760px;margin:0 auto}
+header h1{font-size:30px;font-weight:800}
+header p{margin:6px 0 0;color:var(--muted)}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+nav .in{max-width:760px;margin:0 auto;display:flex;gap:6px;padding:8px 12px}
+nav button{flex:1;font:inherit;font-weight:700;padding:10px 6px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+nav button[aria-selected="true"]{background:var(--brand);color:var(--brand-ink);border-color:var(--brand)}
+button:focus-visible,input:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
+main{max-width:760px;margin:0 auto;padding:12px 12px 60px}
+section[hidden]{display:none}
+.group{margin:22px 0 8px;font-size:21px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin:10px 0}
+.card h3{font-size:17px;margin-bottom:8px}
+.eq{display:flex;align-items:center;gap:8px;flex-wrap:wrap;overflow-x:auto;padding:4px 0}
+.eq .lhs{font-weight:700}
+.frac{display:inline-flex;flex-direction:column;align-items:center;text-align:center}
+.frac .n{padding:0 8px 3px;border-bottom:2px solid var(--ink)}
+.frac .d{padding:3px 8px 0}
+.mult{font-weight:700}
+.note{color:var(--muted);font-size:14px;margin-top:6px}
+.banner{background:var(--warn-bg);color:var(--warn);border-radius:10px;padding:10px 12px;font-size:14px;margin:10px 0}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th,td{text-align:left;padding:8px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:700;background:var(--soft)}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+dl{margin:0}
+dl div{display:flex;gap:10px;padding:7px 0;border-bottom:1px solid var(--line)}
+dl div:last-child{border:0}
+dt{font-weight:700;min-width:64px;color:var(--brand)}
+dd{margin:0}
+.data td:last-child{text-align:right;font-weight:700;white-space:nowrap}
+.q{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:12px 14px;margin:10px 0}
+.q.ok{border-color:var(--ok);background:var(--ok-bg)}
+.q.ko{border-color:var(--ko);background:var(--ko-bg)}
+.q label{display:block;font-weight:700;margin-bottom:8px}
+.q .row{display:flex;align-items:center;gap:8px}
+.q input{flex:1;min-width:0;font:inherit;font-size:18px;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+.q .unit{color:var(--muted);font-size:14px;max-width:46%}
+.fb{margin-top:10px;font-size:15px}
+.fb .verdict{font-weight:800}
+.q.ok .verdict{color:var(--ok)} .q.ko .verdict{color:var(--ko)}
+.calc{color:var(--muted);margin-top:4px}
+.actions{display:flex;gap:10px;margin:18px 0}
+.btn{flex:1;font:inherit;font-weight:800;padding:14px;border-radius:12px;border:2px solid var(--brand);background:var(--brand);color:var(--brand-ink);cursor:pointer}
+.btn.alt{background:transparent;color:var(--brand)}
+.result{border-radius:14px;padding:16px;margin:14px 0;background:var(--soft)}
+.result .big{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:44px;font-weight:800;line-height:1}
+.progress{height:8px;border-radius:99px;background:var(--line);overflow:hidden;margin-top:10px}
+.progress i{display:block;height:100%;background:var(--brand);width:0}
+.pill{display:inline-block;padding:2px 10px;border-radius:99px;background:var(--soft);color:var(--brand);font-weight:700;font-size:14px}
+@media (prefers-reduced-motion:no-preference){.progress i{transition:width .4s}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Santé publique</h1>
+  <p>Formules du cours, vaccination PEV et exercice à traiter en ligne avec correction.</p>
+</header>
+<nav><div class="in" role="tablist">
+  <button role="tab" aria-selected="true" data-t="formules">Formules</button>
+  <button role="tab" aria-selected="false" data-t="pev">PEV et sigles</button>
+  <button role="tab" aria-selected="false" data-t="exo">Exercice</button>
+</div></nav>
+<main>
+  <section id="formules"></section>
+  <section id="pev" hidden></section>
+  <section id="exo" hidden></section>
+</main>
+
+<script>
+/* ---------- Outils d'affichage ---------- */
+function esc(s){return String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}
+function frac(n,d){return '<span class="frac"><span class="n">'+esc(n)+'</span><span class="d">'+esc(d)+'</span></span>'}
+function eq(lhs,n,d,mult){
+  return '<div class="eq"><span class="lhs">'+esc(lhs)+' =</span>'+(d?frac(n,d):'<span>'+esc(n)+'</span>')+(mult?'<span class="mult">× '+mult+'</span>':'')+'</div>';
+}
+
+/* ---------- Formules ---------- */
+const F=[
+ {g:"Population et démographie",items:[
+  {t:"Population moyenne (Pop M)",lhs:"Pop M",n:"Pop début + Pop fin",d:"2"},
+  {t:"Taux brut de natalité (TBN)",lhs:"TBN",n:"Naissances vivantes en 1 an",d:"Pop totale ou Pop moyenne",m:"1000 (cours : 100)"},
+  {t:"Taux d'accroissement naturel (TAN)",lhs:"TAN",n:"Naissances − Décès",d:"Pop début d'année",m:"100",note:"Ou encore : TAN = TBN − TBM (taux brut de mortalité)."},
+  {t:"Taux d'accroissement annuel (TAA)",lhs:"TAA",n:"Pop fin d'année − Pop début d'année",d:"Pop début d'année",m:"100"},
+  {t:"Population totale après t années (Pt)",lhs:"Pt",n:"P0 (1 + r)^t",note:"P0 = population de départ, r = taux de croissance annuel, t = nombre d'années."},
+  {t:"Temps de doublement (TD)",lhs:"TD",n:"70",d:"Taux de croissance annuel (%)",note:"Règle de 70."},
+  {t:"Année de doublement (AD)",lhs:"AD",n:"AR + TD",note:"AR = année de référence."}
+ ]},
+ {g:"Fécondité et accouchements",items:[
+  {t:"Taux général de fécondité (TGF)",lhs:"TGF",n:"Naissances vivantes de l'année",d:"Nombre de femmes en âge de procréer (FAP)",m:"100"},
+  {t:"Taux d'accouchement assisté (TAccA)",lhs:"TAccA",n:"Nombre de femmes assistées pendant l'accouchement",d:"Nombre d'accouchements attendus dans l'année",m:"100"}
+ ]},
+ {g:"Morbidité",items:[
+  {t:"Taux brut de morbidité (TBMorb)",lhs:"TBMorb",n:"Nombre de malades",d:"Pop totale ou moyenne",m:"100"},
+  {t:"Taux d'incidence (TI)",lhs:"TI",n:"Nombre de nouveaux cas sur une période",d:"Pop à risque",m:"100"},
+  {t:"Prévalence",lhs:"Prévalence",n:"Nombre total de cas (anciens + nouveaux)",d:"Pop totale",m:"100"},
+  {t:"Létalité",lhs:"Létalité",n:"Décès dus à la maladie",d:"Nombre total de cas de la maladie",m:"100",note:"Complément de l'exercice (décès par rougeole)."}
+ ]},
+ {g:"Mortalité",items:[
+  {t:"Taux brut de mortalité (TBM)",lhs:"TBM",n:"Nombre de décès",d:"Pop totale ou moyenne",m:"1000 (cours : 100)"},
+  {t:"Taux spécifique de mortalité (TMS)",lhs:"TMS",n:"Décès dans une catégorie spécifique",d:"Pop de cette catégorie",m:"1000"},
+  {t:"Mortalité néonatale (TMNN)",lhs:"TMNN",n:"Décès d'enfants de moins de 28 jours",d:"Naissances vivantes",m:"1000"},
+  {t:"Mortalité néonatale précoce (TMNNP)",lhs:"TMNNP",n:"Décès de 0 à 7 jours",d:"Naissances vivantes",m:"1000"},
+  {t:"Mortalité néonatale tardive (TMNNT)",lhs:"TMNNT",n:"Décès de 8 à 28 jours",d:"Naissances vivantes",m:"1000"},
+  {t:"Mortalité post-néonatale et infantile",lhs:"TMI",n:"Décès d'enfants de moins d'1 an",d:"Naissances vivantes",m:"1000",note:"Post-néonatale : décès de 29 jours à 1 an. Infantile = néonatale + post-néonatale."},
+  {t:"Mortalité maternelle (TMM)",lhs:"TMM",n:"Décès maternels",d:"Naissances vivantes",m:"100 000",note:"Complément de l'exercice."}
+ ]},
+ {g:"Vaccination",items:[
+  {t:"Taux de couverture vaccinale (TCV)",lhs:"TCV",n:"Doses administrées",d:"Pop cible de la période",m:"100"},
+  {t:"Taux de perte des vaccins (TP)",lhs:"TP",n:"Doses de sortie − Doses administrées",d:"Doses de sortie",m:"100"},
+  {t:"Taux d'abandon spécifique (TA)",lhs:"TA",n:"DTC-HepB-Hib1 − DTC-HepB-Hib3",d:"DTC-HepB-Hib1",m:"100",note:"Exemple du cours : (1200 − 1020) / 1200 × 100 = 15 %."},
+  {t:"Taux d'abandon global (TAG)",lhs:"TAG",n:"DTC-HepB-Hib1 − RR",d:"DTC-HepB-Hib1",m:"100",note:"RR = rougeole-rubéole, dernière dose du calendrier."}
+ ]},
+ {g:"Besoins en vaccins et matériel",items:[
+  {t:"Besoin annuel (BA)",lhs:"BA",n:"Pop cible × Objectif vaccinal × Nombre de contacts × Facteur de perte"},
+  {t:"Besoin réel (BR) et quantité commandée (QC)",lhs:"BR",n:"BT + SS",note:"QC = BR − QS. BT = besoin total, SS = stock de sécurité, QS = quantité en stock, QC = quantité commandée."},
+  {t:"Seringues à dilution",lhs:"Nombre de seringues à dilution",n:"Nombre de doses",note:"Pour les vaccins qui se reconstituent."},
+  {t:"Boîtes de sécurité",lhs:"1 boîte de sécurité",n:"100 seringues usagées"}
+ ]}
+];
+(function(){
+  let h='<div class="banner">Base de calcul (×100 ou ×1000) : le cours donne ×100 pour plusieurs taux, mais beaucoup d\'énoncés demandent ×1000. Suis toujours la base écrite dans la question.</div>';
+  F.forEach(g=>{
+    h+='<h2 class="group">'+esc(g.g)+'</h2>';
+    g.items.forEach(i=>{
+      h+='<div class="card"><h3>'+esc(i.t)+'</h3>'+eq(i.lhs,i.n,i.d,i.m)+(i.note?'<div class="note">'+esc(i.note)+'</div>':'')+'</div>';
+    });
+  });
+  document.getElementById('formules').innerHTML=h;
+})();
+
+/* ---------- PEV et sigles ---------- */
+(function(){
+  const cal=[
+   ["Naissance","BCG, Hépatite B, VPO"],
+   ["6 – 10 – 14 semaines","Penta, VPO, PCV13, Rota, VPI"],
+   ["6 mois","VAP 1"],
+   ["9 mois","VAP 2"],
+   ["9 mois (suite)","RR 1, VAA, Men A, VAP 3"],
+   ["15 mois","RR 2, VAP 4"],
+   ["9 ans","HPV"]
+  ];
+  const sig=[
+   ["BCG","Vaccin contre la tuberculose (BK : bacille de Koch)"],
+   ["VPO","Vaccin polio oral"],["VPI","Vaccin polio injectable"],
+   ["DTC-HepB-Hib","Protège contre la diphtérie, le tétanos, la coqueluche, l'hépatite B et les infections à Haemophilus influenzae type b"],
+   ["Penta","5 maladies (DTC : 1-2-3, HepB : 4, Hib : 5)"],
+   ["PCV13","Vaccin contre le pneumocoque"],
+   ["Rota","Vaccin contre les diarrhées à rotavirus"],
+   ["VAA","Vaccin antiamaril (fièvre jaune)"],
+   ["Men A","Vaccin contre la méningite A"],
+   ["RR","Vaccin contre la rougeole et la rubéole"],
+   ["VAP","Vaccin antipaludique"],
+   ["HPV","Vaccin contre le papillomavirus humain"]
+  ];
+  let h='<h2 class="group">Calendrier vaccinal PEV</h2><div class="banner">Calendrier recopié de tes notes manuscrites : vérifie-le avec ton cours avant de le réciter.</div><div class="tw"><table><tr><th>Âge</th><th>Vaccins</th></tr>';
+  cal.forEach(r=>h+='<tr><td>'+esc(r[0])+'</td><td>'+esc(r[1])+'</td></tr>');
+  h+='</table></div><h2 class="group">Signification des sigles</h2><div class="card"><dl>';
+  sig.forEach(r=>h+='<div><dt>'+esc(r[0])+'</dt><dd>'+esc(r[1])+'</dd></div>');
+  h+='</dl></div>';
+  document.getElementById('pev').innerHTML=h;
+})();
+
+/* ---------- Exercice ---------- */
+const DATA=[
+ ["Démographie",[["Population au 1er janvier 2024","800 000 hbts"],["Population au 31 décembre 2024","804 000 hbts"],["Naissances vivantes en 2024","3 660"],["Décès toutes causes","800"]]],
+ ["Femmes et accouchements",[["Femmes en âge de procréer (15-49 ans)","45 000"],["Accouchements attendus dans l'année","3 400"],["Femmes ayant accouché avec du personnel qualifié","3 060"]]],
+ ["Mortalité spécifique",[["Décès de nourrissons (moins d'1 an)","90"],["Décès d'enfants de 1 à 4 ans","24"],["Décès maternels","3"],["Décès néonatals précoces (0-7 jours)","36"],["Décès néonatals tardifs (8-28 jours)","18"],["Décès post-néonatals (29 jours à 1 an)","36"]]],
+ ["Morbidité",[["Nombre total de malades (toutes causes)","16 000"],["Nouveaux cas de rougeole dans l'année","400"],["Nombre total de cas de rougeole (anciens + nouveaux)","500"],["Décès par rougeole","10"]]],
+ ["Croissance démographique",[["Taux de croissance annuel estimé (r)","1,5 %"],["Année de référence","2024"]]],
+ ["Vaccination des enfants (pop cible : tous les enfants = naissances vivantes)",[["DTC-HepB-Hib 1 (1re dose) administrées","3 600"],["DTC-HepB-Hib 3 (3e dose) administrées","3 060"],["Vaccin RR administré","3 240"],["Doses de DTC sorties de la chaîne de froid","3 800"],["Doses de DTC administrées","3 420"],["Objectif vaccinal","90 %"],["Nombre de contacts par enfant (schéma vaccinal)","3"],["Facteur de perte","1,1"],["Stock de sécurité (SS)","500 doses"],["Stock actuel en chambre froide (QS)","2 000 doses"]]]
+];
+/* id, énoncé, unité, réponse, tolérance, calcul, affichage */
+const Q=[
+ ["Population moyenne (Pop M)","hbts",802000,0.5,"(800 000 + 804 000) / 2 = 802 000","802 000"],
+ ["Taux brut de natalité (TBN), pour 1000","‰",4.564,0.02,"3 660 / 802 000 × 1000 = 4,56 ‰","4,56"],
+ ["Taux général de fécondité (TGF), pour 100","%",8.133,0.03,"3 660 / 45 000 × 100 = 8,13 %","8,13"],
+ ["Taux d'accouchement assisté (TAccA)","%",90,0.5,"3 060 / 3 400 × 100 = 90 %","90"],
+ ["Taux d'accroissement naturel (TAN), base pop début","%",0.3575,0.01,"(3 660 − 800) / 800 000 × 100 = 0,36 %","0,36"],
+ ["Taux d'accroissement annuel (TAA)","%",0.5,0.01,"(804 000 − 800 000) / 800 000 × 100 = 0,5 %","0,5"],
+ ["Taux brut de morbidité, pour 100","%",1.995,0.02,"16 000 / 802 000 × 100 = 2,00 %","2,00"],
+ ["Taux brut de mortalité (TBM), pour 1000","‰",0.9975,0.02,"800 / 802 000 × 1000 = 1,00 ‰","1,00"],
+ ["Taux d'incidence de la rougeole (pop à risque = pop moyenne), pour 100","%",0.0499,0.005,"400 / 802 000 × 100 = 0,05 %","0,05"],
+ ["Prévalence de la rougeole, pour 100 (pop moyenne)","%",0.0623,0.005,"500 / 802 000 × 100 = 0,06 %","0,06"],
+ ["Létalité de la rougeole","%",2,0.05,"10 / 500 × 100 = 2 %","2"],
+ ["Mortalité spécifique par rougeole, pour 100 000 hbts","pour 100 000",1.247,0.05,"10 / 802 000 × 100 000 = 1,25","1,25"],
+ ["Taux de mortalité infantile (TMI), pour 1000 naissances vivantes","‰",24.59,0.05,"90 / 3 660 × 1000 = 24,59 ‰","24,59"],
+ ["Taux de mortalité néonatale (TMNN), pour 1000","‰",14.754,0.05,"(36 + 18) / 3 660 × 1000 = 14,75 ‰","14,75"],
+ ["Mortalité néonatale précoce (TMNNP), pour 1000","‰",9.836,0.05,"36 / 3 660 × 1000 = 9,84 ‰","9,84"],
+ ["Mortalité néonatale tardive (TMNNT), pour 1000","‰",4.918,0.05,"18 / 3 660 × 1000 = 4,92 ‰","4,92"],
+ ["Mortalité post-néonatale, pour 1000 naissances vivantes","‰",9.836,0.05,"36 / 3 660 × 1000 = 9,84 ‰","9,84"],
+ ["Mortalité maternelle, pour 100 000 naissances vivantes","pour 100 000",81.97,0.5,"3 / 3 660 × 100 000 = 81,97","81,97"],
+ ["Couverture vaccinale DTC-HepB-Hib 3 (TCV)","%",83.607,0.05,"3 060 / 3 660 × 100 = 83,61 %","83,61"],
+ ["Couverture vaccinale RR (TCV)","%",88.525,0.05,"3 240 / 3 660 × 100 = 88,52 %","88,52"],
+ ["Taux d'abandon spécifique (TA) DTC-HepB-Hib 1 → 3","%",15,0.05,"(3 600 − 3 060) / 3 600 × 100 = 15 %","15"],
+ ["Taux d'abandon global (TAG) DTC-HepB-Hib 1 → RR","%",10,0.05,"(3 600 − 3 240) / 3 600 × 100 = 10 %","10"],
+ ["Taux de perte (TP) du DTC","%",10,0.05,"(3 800 − 3 420) / 3 800 × 100 = 10 %","10"],
+ ["Besoin annuel (BA) en doses de DTC-HepB-Hib","doses",10870.2,1,"3 660 × 0,9 × 3 × 1,1 = 10 870,2 doses (soit 10 871 en arrondissant au supérieur)","10 870"],
+ ["Besoin réel (BR) = BA + stock de sécurité","doses",11370.2,1.5,"10 870 + 500 = 11 370 doses","11 370"],
+ ["Quantité à commander (QC) = BR − stock actuel","doses",9370.2,1.5,"11 370 − 2 000 = 9 370 doses","9 370"],
+ ["Seringues à dilution pour le RR (même pop cible, objectif 90 %, 1 contact, perte 1,1)","seringues",3623.4,1.5,"3 660 × 0,9 × 1 × 1,1 = 3 623,4 doses, donc autant de seringues à dilution","3 623"],
+ ["Boîtes de sécurité pour les seringues usagées du DTC (BA)","boîtes",108.7,0.5,"10 870 / 100 = 108,7, soit 109 boîtes","109"],
+ ["Population estimée en 2029 (t = 5 ans, r = 1,5 %)","hbts",861827,10,"800 000 × (1,015)^5 = 861 827 hbts","861 827"],
+ ["Temps de doublement (TD) avec r = 1,5 %","ans",46.667,0.05,"70 / 1,5 = 46,67 ans","46,67"],
+ ["Année de doublement (AD) (AR = 2024)","année",2070.667,0.7,"2024 + 46,67 = 2070,67, soit environ 2071","2071"]
+];
+(function(){
+  let h='<div class="banner">Valeurs lues sur tes photos manuscrites : les femmes en âge de procréer (45 000), le stock actuel en chambre froide (2 000 doses) et la pop cible vaccinale (3 660) sont à vérifier. Si l\'énoncé de ton cours est différent, dis-le-moi et je corrige.</div>';
+  h+='<h2 class="group">Énoncé</h2><div class="card"><p style="margin:0 0 8px">La Région Sanitaire de Boukani a enregistré les données suivantes pour l\'année 2024.</p></div>';
+  DATA.forEach(g=>{
+    h+='<div class="tw" style="margin:10px 0"><table class="data"><tr><th colspan="2">'+esc(g[0])+'</th></tr>';
+    g[1].forEach(r=>h+='<tr><td>'+esc(r[0])+'</td><td>'+esc(r[1])+'</td></tr>');
+    h+='</table></div>';
+  });
+  h+='<h2 class="group">Questions <span class="pill" id="cnt">0 / '+Q.length+'</span></h2>';
+  h+='<div class="note">Arrondis à 2 décimales. Tu peux écrire 4,56 ou 4.56.</div>';
+  Q.forEach((q,i)=>{
+    h+='<div class="q" id="q'+i+'"><label for="i'+i+'">'+(i+1)+'. '+esc(q[0])+'</label><div class="row"><input id="i'+i+'" inputmode="decimal" autocomplete="off" placeholder="Ta réponse"><span class="unit">'+esc(q[1])+'</span></div><div class="fb" id="f'+i+'"></div></div>';
+  });
+  h+='<div class="result" id="res" hidden></div>';
+  h+='<div class="actions"><button class="btn" id="go">Corriger</button><button class="btn alt" id="rs">Recommencer</button></div>';
+  document.getElementById('exo').innerHTML=h;
+})();
+
+function parse(v){
+  v=String(v).trim().replace(/\s/g,'').replace(/\u00a0/g,'').replace(',','.').replace('%','');
+  if(v==='')return null; const n=Number(v); return isNaN(n)?null:n;
+}
+function updateCount(){
+  let c=0; Q.forEach((q,i)=>{if(parse(document.getElementById('i'+i).value)!==null)c++});
+  document.getElementById('cnt').textContent=c+' / '+Q.length;
+}
+document.getElementById('exo').addEventListener('input',updateCount);
+
+/* La correction demande un code d'accès : la demande passe par le site (page parente). */
+document.getElementById('go').onclick=function(){
+  if(window.parent===window){alert('Ouvrez cette page depuis le site MON D.E INFAS pour utiliser la correction.');return}
+  window.parent.postMessage({type:'sp-correct'},'*');
+};
+window.addEventListener('message',function(e){
+  if(e.source===window.parent && e.data && e.data.type==='sp-correct-ok')runCorrection();
+});
+function runCorrection(){
+  let ok=0;
+  Q.forEach((q,i)=>{
+    const v=parse(document.getElementById('i'+i).value);
+    const good=v!==null && Math.abs(v-q[2])<=q[3];
+    if(good)ok++;
+    const box=document.getElementById('q'+i);
+    box.className='q '+(good?'ok':'ko');
+    document.getElementById('f'+i).innerHTML=
+      '<div class="verdict">'+(good?'Bonne réponse':(v===null?'Pas de réponse':'Réponse incorrecte'))+'</div>'+
+      (good?'':'<div>Bonne réponse : <b>'+esc(q[5])+' '+esc(q[1])+'</b></div>')+
+      '<div class="calc">'+esc(q[4])+'</div>';
+  });
+  const note=Math.round(ok/Q.length*200)/10;
+  const msg=note>=16?'Excellent, tu maîtrises les formules.':note>=12?'Bien. Revois les erreurs ci-dessus.':note>=10?'Moyen. Relis les formules puis recommence.':'À retravailler : relis l\'onglet Formules puis recommence.';
+  const r=document.getElementById('res');
+  r.hidden=false;
+  r.innerHTML='<div class="big">'+String(note).replace('.',',')+' / 20</div><div style="margin-top:6px"><b>'+ok+' bonnes réponses sur '+Q.length+'</b></div><div class="progress"><i style="width:'+(ok/Q.length*100)+'%"></i></div><div class="note">'+msg+'</div>';
+  r.scrollIntoView({block:'center'});
+}
+document.getElementById('rs').onclick=function(){
+  Q.forEach((q,i)=>{document.getElementById('i'+i).value='';document.getElementById('q'+i).className='q';document.getElementById('f'+i).innerHTML='';});
+  document.getElementById('res').hidden=true; updateCount(); window.scrollTo({top:0});
+};
+
+/* ---------- Onglets ---------- */
+document.querySelectorAll('nav button').forEach(b=>b.onclick=function(){
+  document.querySelectorAll('nav button').forEach(x=>x.setAttribute('aria-selected',x===b));
+  ['formules','pev','exo'].forEach(id=>document.getElementById(id).hidden=(id!==b.dataset.t));
+  window.scrollTo({top:0});
+});
+</script>
+<script src="definitions.js"></script>
+</body>
+</html>
