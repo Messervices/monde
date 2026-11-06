@@ -5402,5 +5402,24 @@ function load(){
 window.addEventListener("resize",fit);
 document.addEventListener("click",function(e){ var el=e.target; if(el&&el.closest&&el.closest('[data-t="anat"],[data-go="anat"]')) load(); });
 })();</script>
+<script>
+/* Liens directs (ex. mes-cours.html#c-pieds) : ouvre le bon onglet, déplie le cours et s'y place */
+(function(){
+function go(){
+  var id=decodeURIComponent((location.hash||'').slice(1));
+  if(!id) return;
+  var el=document.getElementById(id);
+  if(!el) return;
+  var sec=el.closest('main>section');
+  if(sec&&typeof tab==='function'){ tab(sec.id); }
+  var d=el;
+  while(d){ if(d.tagName==='DETAILS') d.open=true; d=d.parentElement; }
+  var b=document.getElementById('back'); if(b) b.hidden=true;
+  setTimeout(function(){ el.scrollIntoView(); },50);
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',go); else go();
+window.addEventListener('hashchange',go);
+})();
+</script>
 </body>
 </html>

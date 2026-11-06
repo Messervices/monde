@@ -1,0 +1,65 @@
+/* Corrections : INFAS Abengourou · Santé publique · D.E blanc septembre 2026 (Version D). Références : Mes cours · Santé publique (chap. 1 à 11) et formules du site (sante-publique.html). Réponses modifiées d'après le cours : Q7 (bureau du COGES), Q23 (DFL), Q48 (ASC et AT). */
+(function(){
+const S=(id,t)=>"<a href='mes-cours.html#c-s3-"+id+"' target='_blank'>Mes cours · Santé publique · "+t+"</a>";
+const F=(n,t)=>"<a href='sante-publique.html#f"+n+"' target='_blank'>formule n°"+n+" ("+t+")</a>";
+const COG=S('coges','ch. 7 · COGES'),INF=S('info','ch. 8 · Information sanitaire'),CAT=S('cat','ch. 9 · Catastrophes'),SUP=S('sup','ch. 10 · Supervision'),MON=S('mon','ch. 1 · Monitorage'),BUD=S('bud','ch. 2 · Budgétisation'),VAC=S('vac','ch. 3 · Séance de vaccination'),PAR=S('part','ch. 5 · Participation communautaire');
+const CORR={
+"INFAS Abengourou — Santé publique · D.E blanc septembre 2026 (Version D)":{
+"0":"Réponse : B. Le but du COGES est d’associer la communauté, comme membre actif, à la gestion du centre de santé. Il ne sanctionne pas le personnel et ne remplace pas l’État. Réf : "+COG+" (but).",
+"1":"Réponse : C. Le niveau central de la pyramide de l’information sanitaire est la DIS (direction de l’information et de l’informatique sanitaire), qui reçoit les données des directions régionales, les traite et publie le RASS. L’ESPC est le niveau périphérique, le district est le niveau intermédiaire. Réf : "+INF+" (circuit de l’information).",
+"2":"Réponse : C. Une catastrophe est un événement dont les effets dépassent la capacité de réaction de la collectivité. Quand la société peut y faire face, on parle d’urgence. Réf : "+CAT+" (définitions).",
+"3":"Réponse : C. Le style autocratique (le superviseur décide et surveille de près) convient aux situations d’urgence, à une stratégie cruciale ou à un blocage. Le démocratique convient à toutes les situations sauf l’urgence. Réf : "+SUP+" (styles de supervision).",
+"4":"Réponse : B. La méthode directe consiste à observer l’agent pendant l’exécution d’une tâche, sans intervenir sauf si la vie du malade est menacée. L’analyse de documents et l’interrogatoire des usagers relèvent de la méthode indirecte. Réf : "+SUP+" (méthodes et approches).",
+"5":"Réponse : A. Parmi les outils du superviseur : le classeur du superviseur, le classeur de l’information sanitaire, le cahier à problèmes, la fiche de synthèse et la fiche de supervision (ou d’observation). Le carnet de vaccination, le registre de consultation et la carte sanitaire ne sont pas des outils du superviseur. Réf : "+SUP+" (outils du superviseur).",
+"6":"Réponse : C. Le mandat des membres du COGES est de 3 ans, renouvelable. Réf : "+COG+" (durée du mandat).",
+"7":{"a":[1],"e":"Réponse : B (corrigée d’après le cours). Le bureau du COGES comprend un président (membre communautaire), un responsable de la gestion financière (membre communautaire) et un responsable de la gestion administrative et technique (l’infirmier, la sage-femme ou le travailleur social). La liste « secrétaire, trésorier, commissaire aux comptes » n’est pas celle du cours. L’ancienne réponse était A. Réf : "+COG+" (composition, bureau)."},
+"8":"Réponse : B. Le responsable de la gestion financière (membre communautaire) recueille les sommes collectées, enregistre les recettes dans le livret de caisse, les verse à la banque et établit le bilan. Réf : "+COG+" (fonctions des membres du bureau).",
+"9":"Réponse : C. Un indicateur est une variable (quantitative ou qualitative) simple qui mesure un aspect d’une intervention en santé. Une donnée brute n’est pas encore un indicateur. Réf : "+INF+" (définitions).",
+"10":"Réponse : B. L’information est une donnée placée dans un contexte significatif et utile pour l’utilisateur final. Une donnée non traitée reste une donnée brute. Réf : "+INF+" (définitions).",
+"11":"Réponse : C. Les étapes de génération de l’information sont : collecte, compilation, transmission, traitement, analyse, interprétation, utilisation, diffusion. La collecte vient en premier. Réf : "+INF+" (étapes).",
+"12":"Réponse : B. Taux de promptitude = rapports mensuels reçus dans le délai / rapports attendus × 100 (le rapport mensuel de l’ESPC est dû le 5 du mois suivant). La complétude, elle, compte les rapports reçus quel que soit le délai. Réf : "+INF+" (promptitude et complétude).",
+"13":"Réponse : C. La rétro-information est le retour de l’information produite vers les structures qui produisent les données (niveaux inférieurs). La transmission ascendante va dans l’autre sens. Réf : "+INF+" (définitions, circuit).",
+"14":"Réponse : B. Selon l’OMS, le SIS est un ensemble d’éléments et de procédures liés qui fournissent des renseignements pour surveiller l’état de santé et améliorer la gestion et la prise de décision à tous les niveaux. Réf : "+INF+" (définitions).",
+"15":"Réponse : B. Le style démocratique (participatif) fait participer les collaborateurs à la planification et aux décisions, et encourage leurs initiatives. Avantages : rendement durable, motivation, bonne coordination ; applicable partout sauf en urgence. Réf : "+SUP+" (styles de supervision).",
+"16":"Réponse : C. Pour le curatif (CSC), l’accessibilité géographique est la population résidant dans un rayon de 10 km : 6 400 / 8 000 × 100 = 80 %. Réf : "+F(73,'accessibilité géographique')+" ; "+MON+" (7.3 Accessibilité géographique).",
+"17":"Réponse : A. La population cible annuelle du CSC est la population totale (8 000) ; la population cible du monitorage (6 mois) est la moitié : 8 000 / 2 = 4 000. Réf : "+F(71,'population cible du monitorage')+" ; "+MON+" (7.1 Population cible).",
+"20":"Réponse : A. Couverture effective (CSC) = consultants traités selon les directives avec des médicaments bien conservés et non périmés / population cible × 100 = 1 500 / 4 000 × 100 = 37,5 %, soit 37 %. Le dossier avec médicament périmé n’est pas compté. Réf : "+F(76,'couverture effective')+" ; "+MON+" (7.6 Couverture effective).",
+"22":"Réponse : A conservée, faute d’option exacte. Selon la formule du cours, SAB = RVME + RCAS = 400 000 + 600 000 = 1 000 000 F, valeur absente des choix ; A (600 000 F) correspond aux recettes du semestre déjà déposées. Question à signaler à l’enseignant. Réf : "+F(50,'somme à budgétiser')+" ; "+BUD+" (SAB = RVME + RCAS).",
+"23":{"a":[3],"e":"Réponse : D (corrigée d’après le cours). DFL = SAB − DO ; SAB = RVME + RCAS = 400 000 + 600 000 = 1 000 000 F ; DFL = 1 000 000 − 700 000 = 300 000 F. Cohérent avec la Q24 (10 % × 300 000 = 30 000 F) et la Q25 (5 % × 300 000 = 15 000 F). L’ancienne réponse était C (600 000 F). Réf : "+BUD+" (DFL = SAB − DO) ; "+F(53,'autres dépenses')+"."},
+"24":"Réponse : C. Le plafond de l’immeuble est de 10 % de la DFL : 10 % × 300 000 = 30 000 F. Réf : "+F(52,'immeuble = 10 % × DFL')+" ; "+BUD+".",
+"26":"Réponse : D. Taux d’utilisation = doses administrées / doses sorties × 100 = 180 / 200 × 100 = 90 %. Réf : "+F(45,'taux d’utilisation')+" ; "+VAC+".",
+"27":"Réponse : B. Taux de perte = (doses sorties − doses administrées) / doses sorties × 100 = (200 − 180) / 200 × 100 = 10 %, soit 100 % − 90 %. Réf : "+F(44,'taux de perte')+".",
+"28":"Réponse : C. Facteur de perte = 100 / (100 − taux de perte) = 100 / 90 ≈ 1,11. Réf : "+F(46,'facteur de perte')+".",
+"29":"Réponse : C. Stock de sécurité en vaccin = 25 % × besoin théorique = 25 % × 400 = 100 ; besoin réel = BT + SS = 400 + 100 = 500 doses. Réf : "+F(39,'stock de sécurité')+" ; "+F(41,'besoin réel')+".",
+"30":"Réponse : C. Quantité à commander = besoin réel − quantité en stock = 500 − 120 = 380 doses. Réf : "+F(42,'quantité à commander')+".",
+"31":"Faux. Les données sont des faits bruts (nombres, mesures, textes) non traités ; elles deviennent une information quand elles sont placées dans un contexte utile. Réf : "+INF+" (définitions).",
+"32":"Vrai. L’information sanitaire est le produit du traitement, de l’analyse et de l’interprétation des données, utile à la décision. Réf : "+INF+" (définitions).",
+"33":"Vrai. La collecte est le premier temps du cycle de l’information : enregistrer les données dans les registres d’activités, puis les reporter sur les fiches de rapport. Réf : "+INF+" (étapes : collecte).",
+"34":"Vrai. Le rapport mensuel de l’ESPC (rapport A) doit parvenir au CSE du district au plus tard le 5 du mois suivant. Réf : "+INF+" (délais de transmission des rapports).",
+"35":"Vrai. Taux de complétude = rapports reçus / rapports attendus × 100, quel que soit le délai. Un mauvais taux de promptitude n’annonce pas forcément une mauvaise complétude. Réf : "+INF+" (promptitude et complétude).",
+"36":"Vrai. La rétro-information est le retour de l’information produite vers les structures qui produisent les données (niveaux inférieurs). Réf : "+INF+" (définitions, rôles des acteurs).",
+"37":"Vrai. Une catastrophe est un événement naturel ou causé par l’homme, aux effets négatifs importants, qui dépasse la capacité de réaction de la collectivité. Réf : "+CAT+" (définitions).",
+"38":"Faux. Le risque est la probabilité de pertes liées à un événement dévastateur, compte tenu du danger ET de la vulnérabilité ; il en dépend donc. Réf : "+CAT+" (définitions).",
+"39":"Vrai. Les cyclones, les tremblements de terre et les tsunamis sont des catastrophes naturelles. Réf : "+CAT+" (types de catastrophes naturelles).",
+"40":"Vrai. Le rôle de l’infirmier ou de la sage-femme est de donner l’alerte le plus vite possible au directeur départemental de la santé pour que les secours s’organisent, et d’apporter un soutien psychologique avant leur arrivée. Réf : "+CAT+" (rôle de l’infirmier).",
+"41":"Vrai. La supervision guide, forme, soutient et encourage l’agent sur son lieu de travail ; ses buts sont l’amélioration continue de la performance du personnel et de la qualité du service. Réf : "+SUP+" (définition, buts).",
+"42":"Vrai. La supervision est une activité périodique, programmée et généralement annoncée ; l’inspection et le contrôle peuvent avoir lieu à tout moment. Réf : "+SUP+" (supervision et autres fonctions : moment périodique).",
+"43":"Faux. Le COGES est un organe communautaire : entre 10 et 20 personnes représentant les villages de l’aire sanitaire. Outre l’infirmier, la sage-femme ou le travailleur social, les autres membres viennent de la communauté. Réf : "+COG+" (composition).",
+"44":"Vrai. Le COGES est un groupe de personnes choisies par la communauté, qui participent avec les agents de santé à la gestion et au fonctionnement des formations sanitaires rurales. Réf : "+COG+" (définition).",
+"45":"Vrai. Les règles du COGES sont fixées par le décret n° 93-218 du 3 février 1993. Réf : "+COG+" (définition).",
+"46":"Vrai. Le COGES comprend entre 10 et 20 personnes (article 3 du décret). Réf : "+COG+" (composition).",
+"47":"Faux. Le mandat est de trois ans, renouvelable, et non de cinq ans non renouvelables. Réf : "+COG+" (durée du mandat).",
+"48":{"a":[0],"e":"Vrai (corrigée d’après le cours). Les agents de santé communautaires (ASC) et les accoucheuses traditionnelles (AT) font partie d’office du COGES. L’ancienne réponse (Faux) venait du corrigé reçu, qui contredit le cours. Réf : "+COG+" (composition)."},
+"49":"Faux. La participation aux activités du COGES est bénévole. Réf : "+COG+" (composition).",
+"50":"Vrai. Les critères pour être membre : résider en permanence dans un village desservi par le centre, ne pas avoir commis de délit public, avoir une bonne moralité et une activité génératrice de revenu. Réf : "+COG+" (critères).",
+"51":"Vrai. Parmi les rôles du COGES dans le centre : élaborer le budget semestriel et suivre les mouvements d’argent à la banque. Réf : "+COG+" (rôles) ; "+BUD+".",
+"52":"Faux. Le COGES veille au personnel (présence, communication, savoir-être) et participe à la gestion du personnel payé sur les fonds du centre. Réf : "+COG+" (rôles dans le centre).",
+"53":"Vrai. Le COGES veille à la disponibilité des médicaments essentiels et des vaccins, à la propreté, à l’éclairage, à l’eau potable et à l’entretien. Réf : "+COG+" (rôles).",
+"54":"Vrai. Hors du centre, le COGES fait connaître les activités, promeut la participation financière, l’acceptabilité des services et le changement de comportement. Réf : "+COG+" (rôles hors du centre) ; "+PAR+".",
+"55":"Vrai. Le responsable de la gestion financière enregistre les recettes dans le livret (cahier) de caisse ; ses outils comprennent aussi le livret d’épargne et le carnet de souches. Réf : "+COG+" (outils de gestion).",
+"56":"Vrai. Le président ouvre le compte, convoque les réunions, dirige les débats vers un consensus, autorise les retraits et coordonne les activités. Réf : "+COG+" (fonctions des membres du bureau).",
+"57":"Vrai. Les sources de revenus du COGES sont les actes de santé, la vente de documents (carnets de santé, cartes de vaccination) et les dons et legs. Réf : "+COG+" (sources de revenus)."
+}
+};
+DE._t.CATS.forEach(c=>c.s.forEach(s=>{const m=CORR[s.t];if(!m)return;Object.keys(m).forEach(i=>{const q=s.qs[+i];if(!q)return;const v=m[i];if(typeof v==='string')q.e=v;else{q.a=v.a;q.e=v.e}})}));
+})();
