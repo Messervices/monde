@@ -85,7 +85,7 @@ dd{margin:0}
 <body>
 <header>
   <h1>Santé publique</h1>
-  <p>Formules du cours, vaccination PEV et exercice à traiter en ligne avec correction.</p>
+  <p>Les 76 formules de santé publique, vaccination PEV et exercice à traiter en ligne avec correction.</p>
 </header>
 <nav><div class="in" role="tablist">
   <button role="tab" aria-selected="true" data-t="formules">Formules</button>
@@ -107,54 +107,129 @@ function eq(lhs,n,d,mult){
 }
 
 /* ---------- Formules ---------- */
+/* Source : « Formules de Santé Publique » (actualisées, rédigées par IDE GBOKO ANGE AXEL, TEAM GBOKO INFAS DALOA), 76 formules.
+   Chaque formule : num (numéro du document), t (titre), eqs (équations : lhs = membre de gauche, n = numérateur, d = dénominateur, m = multiplicateur), note (facultatif). */
+function pc(num,t,pct,dec){return {num:num,t:t,eqs:[{lhs:"PC",n:pct+" × Pt"},{lhs:"Pt",n:"PC",d:dec}]}}
 const F=[
- {g:"Population et démographie",items:[
-  {t:"Population moyenne (Pop M)",lhs:"Pop M",n:"Pop début + Pop fin",d:"2"},
-  {t:"Taux brut de natalité (TBN)",lhs:"TBN",n:"Naissances vivantes en 1 an",d:"Pop totale ou Pop moyenne",m:"1000 (cours : 100)"},
-  {t:"Taux d'accroissement naturel (TAN)",lhs:"TAN",n:"Naissances − Décès",d:"Pop début d'année",m:"100",note:"Ou encore : TAN = TBN − TBM (taux brut de mortalité)."},
-  {t:"Taux d'accroissement annuel (TAA)",lhs:"TAA",n:"Pop fin d'année − Pop début d'année",d:"Pop début d'année",m:"100"},
-  {t:"Population totale après t années (Pt)",lhs:"Pt",n:"P0 (1 + r)^t",note:"P0 = population de départ, r = taux de croissance annuel, t = nombre d'années."},
-  {t:"Temps de doublement (TD)",lhs:"TD",n:"70",d:"Taux de croissance annuel (%)",note:"Règle de 70."},
-  {t:"Année de doublement (AD)",lhs:"AD",n:"AR + TD",note:"AR = année de référence."}
+ {g:"Populations cibles",intro:"Toutes les populations cibles se calculent avec la population totale (Pt, au 31/12 de l'année en cours). On ne prend pas la population moyenne. PC = population cible.",items:[
+  pc("1","Enfants de 0 à 6 mois","1,45 %","0,0145"),
+  pc("2","Enfants de 0 à 11 mois","3,5 %","0,035"),
+  pc("3","Enfants de 0 à 23 mois","6,82 %","0,0682"),
+  pc("4","Enfants de 0 à 59 mois (0 à 5 ans)","20 %","0,2"),
+  pc("5","Enfants de 12 à 23 mois","3,32 %","0,0332"),
+  pc("6","Enfants de 9 mois à 14 ans","45 %","0,45"),
+  pc("7","Enfants de 1 à 4 ans","17,32 %","0,1732"),
+  pc("8","Jeunes filles de 9 ans","1,86 %","0,0186"),
+  pc("9","Enfants de 9 à 13 ans","6 %","0,06"),
+  {num:"10",t:"Femmes en âge de reproduction ou de procréer (FAR)",eqs:[{lhs:"FAR",n:"20 % × Pt"},{lhs:"Pt",n:"FAR",d:"0,2"}]},
+  pc("11","Femmes enceintes ou grossesses attendues","5 %","0,05"),
+  {num:"12",t:"Femmes séropositives",eqs:[{lhs:"PC",n:"4,1 % × Grossesses attendues"},{lhs:"GA",n:"PC",d:"0,041"}],note:"GA = grossesses attendues."},
+  pc("13","Naissances attendues ou accouchements attendus","4,7 %","0,047")
  ]},
- {g:"Fécondité et accouchements",items:[
-  {t:"Taux général de fécondité (TGF)",lhs:"TGF",n:"Naissances vivantes de l'année",d:"Nombre de femmes en âge de procréer (FAP)",m:"100"},
-  {t:"Taux d'accouchement assisté (TAccA)",lhs:"TAccA",n:"Nombre de femmes assistées pendant l'accouchement",d:"Nombre d'accouchements attendus dans l'année",m:"100"}
+ {g:"Population totale",intro:"À retenir : si on donne la population au 01/01 et la population au 31/12 de la même année, il faut calculer la population moyenne, même si l'exercice ne le précise pas. La population moyenne est prioritaire sur la population totale.",items:[
+  {num:"14",t:"Équation de projection",eqs:[{lhs:"Pt",n:"P0 (1 + r)^t"}],note:"P0 = population de départ ; r = TAA (taux d'accroissement annuel) ; t = temps."},
+  {num:"15",t:"Équation fondamentale",eqs:[{lhs:"Pt",n:"P0 + AN + SM"}],note:"AN = accroissement naturel ; SM = solde migratoire."},
+  {num:"16",t:"Solde migratoire",eqs:[{lhs:"SM",n:"Immigrés − Émigrés"}]},
+  {num:"17",t:"Accroissement naturel",eqs:[{lhs:"AN",n:"Naissances en une année − Décès en une année"}]},
+  {num:"18",t:"Population moyenne",eqs:[{lhs:"Pop M",n:"Pop de départ + Pop d'arrivée",d:"2"}],note:"La population de départ et la population d'arrivée doivent être de la même année."},
+  {num:"19",t:"Taux brut de natalité (TBN)",eqs:[{lhs:"TBN",n:"Naissances vivantes en 1 an",d:"Pop totale ou moyenne",m:"100"}],note:"On peut multiplier par 10^n (1000 si l'énoncé le demande)."},
+  {num:"20",t:"Taux brut de mortalité (TBM)",eqs:[{lhs:"TBM",n:"Effectif des décès",d:"Pop totale ou moyenne",m:"100"}]},
+  {num:"21",t:"Taux brut de morbidité (TBm)",eqs:[{lhs:"TBm",n:"Effectif des malades",d:"Pop totale ou moyenne",m:"100"}]}
  ]},
- {g:"Morbidité",items:[
-  {t:"Taux brut de morbidité (TBMorb)",lhs:"TBMorb",n:"Nombre de malades",d:"Pop totale ou moyenne",m:"100"},
-  {t:"Taux d'incidence (TI)",lhs:"TI",n:"Nombre de nouveaux cas sur une période",d:"Pop à risque",m:"100"},
-  {t:"Prévalence",lhs:"Prévalence",n:"Nombre total de cas (anciens + nouveaux)",d:"Pop totale",m:"100"},
-  {t:"Létalité",lhs:"Létalité",n:"Décès dus à la maladie",d:"Nombre total de cas de la maladie",m:"100",note:"Complément de l'exercice (décès par rougeole)."}
+ {g:"Fécondité, croissance et morbidité",items:[
+  {num:"22",t:"Taux général de fécondité (TGF)",eqs:[{lhs:"TGF",n:"Naissances vivantes en une année",d:"Nombre de FAR en une année",m:"100"}]},
+  {num:"23",t:"Taux d'accroissement naturel (TAN)",eqs:[{lhs:"TAN",n:"Accroissement naturel",d:"Pop fin d'année",m:"100"}]},
+  {num:"24",t:"Taux d'accroissement annuel (TAA)",eqs:[{lhs:"TAA",n:"Pop d'arrivée − Pop de départ",d:"Pop de départ",m:"100"},{lhs:"TAA = r",n:"Pt",d:"P0"}],note:"Deuxième forme : TAA = r = (Pt / P0) − 1, dans le cas où t = 1 dans l'équation de projection."},
+  {num:"25",t:"Taux d'accouchement assisté (TAccA)",eqs:[{lhs:"TAccA",n:"Effectif des femmes assistées pendant l'accouchement",d:"Nombre d'accouchements attendus la même année",m:"100"}],note:"On considère les accouchements effectués par le médecin, l'IDE, la SF, le maïeuticien et l'accoucheuse traditionnelle."},
+  {num:"26",t:"Taux d'incidence (TI)",eqs:[{lhs:"TI",n:"Effectif des nouveaux cas de la maladie",d:"Pop totale ou moyenne",m:"100"}]},
+  {num:"27",t:"Taux de prévalence (TP)",eqs:[{lhs:"TP",n:"Effectif de tous les cas de la maladie (anciens + nouveaux cas)",d:"Pop totale ou moyenne",m:"100"}]},
+  {num:"28",t:"Taux de létalité (TL)",eqs:[{lhs:"TL",n:"Total des décès causés par une maladie",d:"Nombre de cas de cette maladie",m:"100"}]}
  ]},
- {g:"Mortalité",items:[
-  {t:"Taux brut de mortalité (TBM)",lhs:"TBM",n:"Nombre de décès",d:"Pop totale ou moyenne",m:"1000 (cours : 100)"},
-  {t:"Taux spécifique de mortalité (TMS)",lhs:"TMS",n:"Décès dans une catégorie spécifique",d:"Pop de cette catégorie",m:"1000"},
-  {t:"Mortalité néonatale (TMNN)",lhs:"TMNN",n:"Décès d'enfants de moins de 28 jours",d:"Naissances vivantes",m:"1000"},
-  {t:"Mortalité néonatale précoce (TMNNP)",lhs:"TMNNP",n:"Décès de 0 à 7 jours",d:"Naissances vivantes",m:"1000"},
-  {t:"Mortalité néonatale tardive (TMNNT)",lhs:"TMNNT",n:"Décès de 8 à 28 jours",d:"Naissances vivantes",m:"1000"},
-  {t:"Mortalité post-néonatale et infantile",lhs:"TMI",n:"Décès d'enfants de moins d'1 an",d:"Naissances vivantes",m:"1000",note:"Post-néonatale : décès de 29 jours à 1 an. Infantile = néonatale + post-néonatale."},
-  {t:"Mortalité maternelle (TMM)",lhs:"TMM",n:"Décès maternels",d:"Naissances vivantes",m:"100 000",note:"Complément de l'exercice."}
+ {g:"Taux de mortalité",items:[
+  {num:"29",t:"Taux de mortalité spécifique (TMS)",eqs:[{lhs:"TMS",n:"Total de décès de la maladie la même année",d:"Pop totale",m:"100"}]},
+  {num:"30",t:"Taux de mortalité infantile (TMI)",eqs:[{lhs:"TMI",n:"Nombre d'enfants de 0 à 11 mois décédés",d:"Total des naissances vivantes",m:"100"}]},
+  {num:"31",t:"Taux de mortalité juvénile (TMJ)",eqs:[{lhs:"TMJ",n:"Nombre d'enfants de 1 à 4 ans décédés",d:"Enfants de 1 à 4 ans",m:"100"}]},
+  {num:"32",t:"Taux de mortalité maternelle (TMM)",eqs:[{lhs:"TMM",n:"Effectif des décès maternels dans une année",d:"Naissances vivantes de la même année",m:"100"}]},
+  {num:"33",t:"Taux de mortalité néonatale (TMN)",eqs:[{lhs:"TMN",n:"Nombre de décès d'enfants de 0 à moins de 28 jours",d:"Total de naissances vivantes",m:"100"}]},
+  {num:"34",t:"Taux de mortalité néonatale précoce (TMNP)",eqs:[{lhs:"TMNP",n:"Nombre de décès d'enfants de 0 à moins de 8 jours",d:"Total de naissances vivantes",m:"100"}]},
+  {num:"35",t:"Taux de mortalité néonatale tardive (TMNT)",eqs:[{lhs:"TMNT",n:"Nombre de décès d'enfants de 8 à moins de 28 jours",d:"Total de naissances vivantes",m:"100"}]},
+  {num:"36",t:"Taux de mortalité post-néonatale (TMPN)",eqs:[{lhs:"TMPN",n:"Nombre de décès d'enfants de 28 jours à 11 mois",d:"Total de naissances vivantes",m:"100"}]}
  ]},
- {g:"Vaccination",items:[
-  {t:"Taux de couverture vaccinale (TCV)",lhs:"TCV",n:"Doses administrées",d:"Pop cible de la période",m:"100"},
-  {t:"Taux de perte des vaccins (TP)",lhs:"TP",n:"Doses de sortie − Doses administrées",d:"Doses de sortie",m:"100"},
-  {t:"Taux d'abandon spécifique (TA)",lhs:"TA",n:"DTC-HepB-Hib1 − DTC-HepB-Hib3",d:"DTC-HepB-Hib1",m:"100",note:"Exemple du cours : (1200 − 1020) / 1200 × 100 = 15 %."},
-  {t:"Taux d'abandon global (TAG)",lhs:"TAG",n:"DTC-HepB-Hib1 − RR",d:"DTC-HepB-Hib1",m:"100",note:"RR = rougeole-rubéole, dernière dose du calendrier."}
+ {g:"Doublement, besoins et vaccination",items:[
+  {num:"37",t:"Temps de doublement (TD)",eqs:[{lhs:"TD",n:"70",d:"TAA"}]},
+  {num:"38",t:"Année de doublement (AD)",eqs:[{lhs:"AD",n:"AR + TD"}],note:"AR = année de référence."},
+  {num:"38 bis",t:"Besoin théorique ou quantité théorique (BT)",eqs:[{lhs:"BT",n:"Pop cible × Objectif vaccinal × Nbre de contacts × Facteur de perte × Période",d:"12"}],note:"Période : BT mensuel → 1 ; trimestriel → 3 ; semestriel → 6 ; annuel → 12."},
+  {num:"39",t:"Stock de sécurité en antigène (vaccin)",eqs:[{lhs:"SS",n:"25 % × BT"},{lhs:"SS",n:"25 × BT",d:"100"}]},
+  {num:"40",t:"Stock de sécurité en consommables (seringues…)",eqs:[{lhs:"SS",n:"10 % × BT"},{lhs:"SS",n:"10 × BT",d:"100"}]},
+  {num:"41",t:"Besoin réel (BR)",eqs:[{lhs:"BR",n:"BT + SS"}]},
+  {num:"42",t:"Quantité à commander (QC)",eqs:[{lhs:"QC",n:"BR − Quantité en stock"}]},
+  {num:"43",t:"Taux de couverture vaccinale (TCV)",eqs:[{lhs:"TCV",n:"Doses administrées sur une période",d:"Pop cible de cette période",m:"100"},{lhs:"TCV",n:"Nombre de personnes vaccinées",d:"Nombre de personnes attendues",m:"100"}]},
+  {num:"44",t:"Taux de perte (TP)",eqs:[{lhs:"TP",n:"Doses sorties − Doses administrées",d:"Doses sorties",m:"100"},{lhs:"TP",n:"100 − TU"}]},
+  {num:"45",t:"Taux d'utilisation (TU)",eqs:[{lhs:"TU",n:"Doses effectivement administrées pendant une période",d:"Nombre de doses sorties pendant la même période",m:"100"},{lhs:"TU",n:"100 − Taux de perte"}]},
+  {num:"46",t:"Facteur de perte (FP)",eqs:[{lhs:"FP",n:"100",d:"100 − Taux de perte"},{lhs:"FP",n:"100",d:"TU"}]},
+  {num:"47",t:"Taux d'abandon spécifique (TAS)",eqs:[{lhs:"TAS",n:"Penta1 − Penta3",d:"Penta1",m:"100"},{lhs:"TAS",n:"Td1 − Td3",d:"Td1"},{lhs:"TAS",n:"VPO0 − VPO4",d:"VPO0"}]},
+  {num:"48",t:"Taux d'abandon global (TAG)",eqs:[{lhs:"TAG",n:"Penta1 − RR1",d:"Penta1",m:"100"}],note:"Matériel : nombre de seringues à injection = nombre de doses ; une seringue à dilution pour 1 flacon de vaccin à reconstituer ; une boîte de sécurité pour 100 seringues."}
  ]},
- {g:"Besoins en vaccins et matériel",items:[
-  {t:"Besoin annuel (BA)",lhs:"BA",n:"Pop cible × Objectif vaccinal × Nombre de contacts × Facteur de perte"},
-  {t:"Besoin réel (BR) et quantité commandée (QC)",lhs:"BR",n:"BT + SS",note:"QC = BR − QS. BT = besoin total, SS = stock de sécurité, QS = quantité en stock, QC = quantité commandée."},
-  {t:"Seringues à dilution",lhs:"Nombre de seringues à dilution",n:"Nombre de doses",note:"Pour les vaccins qui se reconstituent."},
-  {t:"Boîtes de sécurité",lhs:"1 boîte de sécurité",n:"100 seringues usagées"}
+ {g:"Gestion financière (monitorage)",items:[
+  {num:"49",t:"Fonds de réserve (FR)",eqs:[{lhs:"FR",n:"SB − Recettes des six mois couverts par le monitorage"},{lhs:"FR",n:"SB + Intérêts − Agios"},{lhs:"FR",n:"SBmb − SAB"}],note:"SB = somme à la banque à la veille du monitorage ; SBmb = somme à la banque après mouvements bancaires."},
+  {num:"50",t:"Somme à budgétiser (SAB)",eqs:[{lhs:"SAB",n:"RVME + RCAS"},{lhs:"SAB",n:"DO + DFL"}],note:"RVME = recettes issues de la vente des médicaments essentiels ; RCAS = recettes issues du coût des actes de santé ; DO = dépenses obligatoires ou incompressibles ; DFL = dépenses de fonctionnement local."},
+  {num:"51",t:"Imprévus",eqs:[{lhs:"Imp",n:"5 % × DFL"}]},
+  {num:"52",t:"Immeuble",eqs:[{lhs:"Im",n:"10 % × DFL"}]},
+  {num:"53",t:"Autres dépenses",eqs:[{lhs:"AD",n:"85 % × DFL"}]},
+  {num:"54",t:"Fonds d'aide sociale (FAS)",eqs:[{lhs:"FAS",n:"10 % × Recettes brutes"}]},
+  {num:"55",t:"Intéressement du personnel (IP)",eqs:[{lhs:"IP",n:"15 % × Recettes brutes"}]},
+  {num:"56",t:"Salaire du personnel de soutien (SPS)",eqs:[{lhs:"SPS",n:"20 % × Recettes brutes"}]},
+  {num:"57",t:"Total des dépenses du centre (TDC)",eqs:[{lhs:"TDC",n:"FAS + IP + SPS"},{lhs:"TDC",n:"45 % × Recettes brutes"}]},
+  {num:"58",t:"Ressources propres (RP)",eqs:[{lhs:"RP",n:"SAB + Recettes des 6 mois couverts par le monitorage"},{lhs:"RP",n:"Recettes brutes − TDC"},{lhs:"RP",n:"55 % × Recettes brutes"}]},
+  {num:"59",t:"Mouvements bancaires",eqs:[],table:[["Intérêts y compris","Somme à la banque + 0"],["Intérêts non compris","Somme à la banque + le montant des intérêts"],["Agios y compris","Somme à la banque − le montant des agios"],["Agios non compris","Somme à la banque − 0"]],tableHead:["Cas","Somme à la banque"]}
+ ]},
+ {g:"Structure de la population",items:[
+  {num:"60",t:"Proportion des femmes",eqs:[{lhs:"PF",n:"Nombre de femmes",d:"Pop totale",m:"100"}]},
+  {num:"61",t:"Proportion des hommes",eqs:[{lhs:"PH",n:"Nombre d'hommes",d:"Pop totale",m:"100"}]},
+  {num:"62",t:"Rapport de masculinité (Rm)",eqs:[{lhs:"Rm",n:"Nombre d'hommes",d:"Nombre de femmes",m:"100"}],note:"On peut aussi multiplier par 10^n."},
+  {num:"63",t:"Taux d'urbanisation (Turb)",eqs:[{lhs:"Turb",n:"Pop urbaine",d:"Pop totale",m:"100"}]},
+  {num:"64",t:"Densité globale (d)",eqs:[{lhs:"d",n:"Population totale",d:"Superficie totale"}]},
+  {num:"65",t:"Densité rurale",eqs:[{lhs:"d rur",n:"Pop rurale",d:"Superficie rurale"}]},
+  {num:"66",t:"Densité urbaine",eqs:[{lhs:"d urb",n:"Pop urbaine",d:"Superficie urbaine"}]},
+  {num:"67",t:"Densité agricole",eqs:[{lhs:"d agr",n:"Population rurale",d:"Superficie agricole"}]},
+  {num:"68",t:"Âge modal",eqs:[],note:"Dans une série d'âges, c'est l'âge qui a le plus grand effectif."},
+  {num:"69",t:"Âge moyen",eqs:[{lhs:"Âge moyen",n:"Somme de chaque âge",d:"Total des personnes ou des cases d'un tableau"}]},
+  {num:"70",t:"Âge médian",eqs:[{lhs:"Âge médian",n:"Le plus petit âge du tableau + Le plus grand âge du tableau",d:"2"}]}
+ ]},
+ {g:"Déterminants de couverture (monitorage)",items:[
+  {num:"71",t:"Population cible du monitorage (PCm)",eqs:[{lhs:"PCm",n:"PC",d:"2"}],note:"PC : voir les formules 1 à 13. Précision : vaccination → PC = 6,82 % × Pt ; CPN recentrée → PC = 5 % × Pt ; consultation et soins curatifs → PC = 100 % × Pt. Dans les trois cas, PCm = PC / 2."},
+  {num:"72",t:"Disponibilité des ressources (DR)",eqs:[{lhs:"DR",n:"Quantité des ressources essentielles existantes",d:"Quantité des ressources essentielles requises pour couvrir la totalité de la population cible",m:"100"},{lhs:"DR",n:"Temps disponible",d:"Temps total",m:"100"},{lhs:"DR",n:"Ressources disponibles",d:"Ressources requises",m:"100"}],note:"DR peut aussi se lire comme le pourcentage de temps pendant lequel les ressources nécessaires à l'exécution de l'activité étaient disponibles."},
+  {num:"73",t:"Accessibilité géographique (AG)",sub:[
+    {h:"Vaccination",eqs:[{lhs:"AG",n:"Pop en stratégie fixe + Pop à plus de 5 km où au moins 3 stratégies ont été effectuées",d:"Pop cible du monitorage",m:"100"}]},
+    {h:"CPNr",eqs:[{lhs:"AG",n:"Pop en stratégie fixe + Pop à plus de 5 km où au moins 4 stratégies ont été effectuées",d:"Pop cible du monitorage",m:"100"}]},
+    {h:"CSC",eqs:[{lhs:"AG",n:"Pop résidant dans un rayon de 10 km",d:"Pop cible du monitorage",m:"100"}]}]},
+  {num:"74",t:"Utilisation des services (US)",sub:[
+    {h:"Vaccination",eqs:[{lhs:"US",n:"Pop cible qui a reçu le Penta1 et le VPO1",d:"Pop cible du monitorage",m:"100"}]},
+    {h:"CPNr",eqs:[{lhs:"US",n:"Pop cible ayant effectué au moins une CPNr",d:"Pop cible du monitorage",m:"100"}]},
+    {h:"CSC",eqs:[{lhs:"US",n:"Pop cible ayant été consultée au moins une fois",d:"Pop cible du monitorage",m:"100"}]}]},
+  {num:"75",t:"Couverture adéquate (CA)",note:"Mesure la proportion de la pop cible qui a bénéficié d'une intervention complète selon l'intensité et la fréquence requises.",sub:[
+    {h:"Vaccination",eqs:[{lhs:"CA",n:"Pop cible correctement vaccinée",d:"Pop cible du monitorage",m:"100"}]},
+    {h:"CPNr",eqs:[{lhs:"CA",n:"Pop cible ayant reçu au moins 4 CPNr et correctement vaccinée",d:"Pop cible du monitorage",m:"100"}]},
+    {h:"CSC",eqs:[{lhs:"CA",n:"Pop cible ayant reçu un traitement et payé le prix correct",d:"Pop cible du monitorage",m:"100"}]}]},
+  {num:"76",t:"Couverture effective (CE)",note:"Mesure la proportion de la pop cible qui a reçu des soins en quantité suffisante et selon la qualité qui correspond aux normes.",sub:[
+    {h:"Vaccination",eqs:[{lhs:"CE",n:"Pop cible correctement vaccinée avec des vaccins conservés entre +2 °C et +8 °C",d:"Pop cible du monitorage",m:"100"}]},
+    {h:"CPNr",eqs:[{lhs:"CE",n:"Pop cible avec une couverture adéquate et ayant reçu des conseils",d:"Pop cible du monitorage",m:"100"}]},
+    {h:"CSC",eqs:[{lhs:"CE",n:"Pop cible ayant été traitée selon les directives nationales",d:"Pop cible du monitorage",m:"100"}]}]}
  ]}
 ];
 (function(){
-  let h='<div class="banner">Base de calcul (×100 ou ×1000) : le cours donne ×100 pour plusieurs taux, mais beaucoup d\'énoncés demandent ×1000. Suis toujours la base écrite dans la question.</div>';
-  F.forEach(g=>{
-    h+='<h2 class="group">'+esc(g.g)+'</h2>';
+  let h='<div class="banner">Formules de Santé Publique actualisées, rédigées par IDE GBOKO ANGE AXEL (TEAM GBOKO, INFAS Daloa). Base de calcul : le cours donne ×100 (ou ×10^n) ; suis toujours la base écrite dans la question.</div>';
+  h+='<div class="note" style="margin:6px 2px 0">'+F.reduce((a,g)=>a+g.items.length,0)+' formules · touche un titre pour aller au groupe</div><div class="chips" style="display:flex;flex-wrap:wrap;gap:6px;margin:10px 0">'+F.map((g,i)=>'<a href="#g'+i+'" class="pill" style="text-decoration:none">'+esc(g.g)+'</a>').join('')+'</div>';
+  F.forEach((g,gi)=>{
+    h+='<h2 class="group" id="g'+gi+'">'+esc(g.g)+'</h2>';
+    if(g.intro)h+='<div class="note" style="margin:0 2px 6px">'+esc(g.intro)+'</div>';
     g.items.forEach(i=>{
-      h+='<div class="card"><h3>'+esc(i.t)+'</h3>'+eq(i.lhs,i.n,i.d,i.m)+(i.note?'<div class="note">'+esc(i.note)+'</div>':'')+'</div>';
+      h+='<div class="card" id="f'+String(i.num).replace(/\s+/g,'')+'"><h3><span class="pill">'+esc(i.num)+'</span> '+esc(i.t)+'</h3>';
+      (i.eqs||[]).forEach(e=>{h+=eq(e.lhs,e.n,e.d,e.m)});
+      (i.sub||[]).forEach(s=>{h+='<div class="note" style="font-weight:700;margin-top:8px">'+esc(s.h)+'</div>';s.eqs.forEach(e=>{h+=eq(e.lhs,e.n,e.d,e.m)})});
+      if(i.table){h+='<div class="tw"><table><tr><th>'+esc(i.tableHead[0])+'</th><th>'+esc(i.tableHead[1])+'</th></tr>'+i.table.map(r=>'<tr><td>'+esc(r[0])+'</td><td>'+esc(r[1])+'</td></tr>').join('')+'</table></div>'}
+      if(i.note)h+='<div class="note">'+esc(i.note)+'</div>';
+      h+='</div>';
     });
   });
   document.getElementById('formules').innerHTML=h;
